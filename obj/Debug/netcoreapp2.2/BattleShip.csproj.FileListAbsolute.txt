@@ -1,0 +1,11 @@
+C:\Users\956040525\Documents\GitHub\BattleShip\bin\Debug\netcoreapp2.2\BattleShip.deps.json
+C:\Users\956040525\Documents\GitHub\BattleShip\bin\Debug\netcoreapp2.2\BattleShip.runtimeconfig.json
+C:\Users\956040525\Documents\GitHub\BattleShip\bin\Debug\netcoreapp2.2\BattleShip.runtimeconfig.dev.json
+C:\Users\956040525\Documents\GitHub\BattleShip\bin\Debug\netcoreapp2.2\BattleShip.dll
+C:\Users\956040525\Documents\GitHub\BattleShip\bin\Debug\netcoreapp2.2\BattleShip.pdb
+C:\Users\956040525\Documents\GitHub\BattleShip\obj\Debug\netcoreapp2.2\BattleShip.csprojAssemblyReference.cache
+C:\Users\956040525\Documents\GitHub\BattleShip\obj\Debug\netcoreapp2.2\BattleShip.csproj.CoreCompileInputs.cache
+C:\Users\956040525\Documents\GitHub\BattleShip\obj\Debug\netcoreapp2.2\BattleShip.AssemblyInfoInputs.cache
+C:\Users\956040525\Documents\GitHub\BattleShip\obj\Debug\netcoreapp2.2\BattleShip.AssemblyInfo.cs
+C:\Users\956040525\Documents\GitHub\BattleShip\obj\Debug\netcoreapp2.2\BattleShip.dll
+C:\Users\956040525\Documents\GitHub\BattleShip\obj\Debug\netcoreapp2.2\BattleShip.pdb
