@@ -57,7 +57,7 @@ namespace BattleShip
 
 			int direction = 0;
 			int turn_counter = 0;
-			int[] ships = new int[5] { 5, 4, 4, 3, 2 };
+			string[] ships = new string[5] {"#####","####","####","###","##" };
 
 			Board.Set_Board(Player.Right_Board);
 			Board.Set_Board(Player.Left_Board);
@@ -86,11 +86,11 @@ namespace BattleShip
 
 		public static void Set_ship(char[,] board, int ships, int x2, int y2)
 		{
-			bool Finished = false;
+			bool Broken = false;
 			int veiw = 0;
 			do
 			{
-				Console.WriteLine("Where do you want to place your ship on the coordante plane? (x)");
+				Console.WriteLine("Where do you want to place your ship (" + ships[);
 				x2 = Console.Read();
 
 				Console.WriteLine("Where do you want to place your ship on the coordante plane? (y)");
@@ -101,14 +101,17 @@ namespace BattleShip
 				Console.WriteLine("Right to Left: 2");
 				veiw = Console.Read();
 
-				if (x2 != int)
-					Finished = false;
-				if (y2 != int)
-					Finsished = false;
+				if ((x2 >= 15) || (x2 < 1))
+					Broken = true;
+				if ((y2 >= 15) || (y2 < 1))
+					Broken = true;
 				if ((veiw != 1) || (veiw != 2))
-					Finished = false;
+					Broken = true;
 
-			} while (Finished);
+			} while (Broken);
+
+
+
 		}
 	}
 
