@@ -83,6 +83,33 @@ namespace BattleShip
 				}
 			}
 		}
+
+		public static void Set_ship(char[,] board, int ships, int x2, int y2)
+		{
+			bool Finished = false;
+			int veiw = 0;
+			do
+			{
+				Console.WriteLine("Where do you want to place your ship on the coordante plane? (x)");
+				x2 = Console.Read();
+
+				Console.WriteLine("Where do you want to place your ship on the coordante plane? (y)");
+				y2 = Console.Read();
+
+				Console.WriteLine("How wouldd you like your ship placed?");
+				Console.WriteLine("Top to Bottom: 1");
+				Console.WriteLine("Right to Left: 2");
+				veiw = Console.Read();
+
+				if (x2 != int)
+					Finished = false;
+				if (y2 != int)
+					Finsished = false;
+				if ((veiw != 1) || (veiw != 2))
+					Finished = false;
+
+			} while (Finished);
+		}
 	}
 
 	class AI
