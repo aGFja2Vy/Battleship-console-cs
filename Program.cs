@@ -2,42 +2,12 @@
 
 namespace BattleShip
 {
-    class Program
+    public class Player
     {
-        static void Main(string[] args)
-        {
-            int xAI = 0;
-            int yAI = 0;
-            int direction = 0;
-            int turn_counter = 0;
-            int[] ships = new int[5] {5,4,4,3,2};
-            char[,] Right_Board = new char[16,16];
-            char[,] Left_Board = new char[16,16];
-            char[,] AI_board = new char[16,16];
+        public char[,] Right_Board = new char[16,16];
+        public char[,] Left_Board = new char[16,16];
 
-            Set_Board(Right_Board);
-            Set_Board(Left_Board);
-            Set_Board(AI_board);
-
-            Display_Board(Left_Board, Right_Board);
-
-            Console.WriteLine("Press ANY Key To Quit");
-            Console.ReadKey();
-            Console.Clear();
-        }
-
-        private static void Set_Board(char[,] board)
-        {
-            for(int x = 0; x < 15; x++)
-            {
-                for(int y = 0; y < 15; y++)
-                {
-                    board[x,y] = ' ';
-                }
-            }
-        }
-
-        private static void Display_Board(char[,] board, char[,] right_board)
+        public static void Display_Board(char[,] board, char[,] right_board)
         {
             
             string s = "\t  |  01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 \t  |  01 02 03 04 05 06 07 08 09 10 11 12 13 14 15";
@@ -75,5 +45,41 @@ namespace BattleShip
             }
         }
     }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            int xAI = 0;
+            int yAI = 0;
+            int direction = 0;
+            int turn_counter = 0;
+            int[] ships = new int[5] {5,4,4,3,2};
+            char[,] AI_board = new char[16,16];
+
+            Set_Board(Right_Board);
+            Set_Board(Left_Board);
+            Set_Board(AI_board);
+
+            Player.Display_Board(Player.Left_Board, Player.Right_Board);
+
+            Console.WriteLine("Press ANY Key To Quit");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        private static void Set_Board(char[,] board)
+        {
+            for(int x = 0; x < 15; x++)
+            {
+                for(int y = 0; y < 15; y++)
+                {
+                    board[x,y] = ' ';
+                }
+            }
+        }
+    }
+    
 }
 
