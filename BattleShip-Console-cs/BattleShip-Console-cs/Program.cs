@@ -45,41 +45,45 @@ namespace BattleShip
 			ship3 = 1;
 			ship2 = 1;
 
-			Console.WriteLine("Would you like to change the number of ships? (Y/N) \n");
+			Console.WriteLine("Would you like to change the number of ships? (Y/N)");
 
 			char answer = Console.ReadKey().KeyChar;
+			Console.WriteLine();
 
 			if ((answer == 'Y') || (answer == 'y'))
 			{
-				Console.WriteLine("\nHow many 5 long ships do you want?");
+				Console.WriteLine("How many 5 long ships do you want?");
 				ship5 = Console.ReadKey().KeyChar;
+				Console.WriteLine();
 
 				Console.WriteLine("How many 4 long ships do you want?");
 				ship4 = Console.ReadKey().KeyChar;
+				Console.WriteLine();
 
 				Console.WriteLine("How many 3 long ships do you want?");
 				ship3 = Console.ReadKey().KeyChar;
+				Console.WriteLine();
 
 				Console.WriteLine("How many 2 long ships do you want?");
 				ship2 = Console.ReadKey().KeyChar;
-
+				Console.WriteLine();
 			}
 
 			Console.WriteLine("Would you like to change the default board size? (Default = 15x15) (Y/N)");
-
 			answer = Console.ReadKey().KeyChar;
 
 			if ((answer == 'Y') || (answer == 'y'))
 			{
-				Console.WriteLine("What is the X dimention or the length of the new board size?");
 
+				Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
 				answer_int = Convert.ToInt32(Console.ReadLine());
 				x = answer_int + 1;
+				Console.WriteLine();
 
-				Console.WriteLine("What is the Hight of the new Board or the Y dimention?");
-
+				Console.WriteLine("What is the Hight of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
 				answer_int = Convert.ToInt32(Console.ReadLine());
 				y = answer_int + 1;
+				Console.WriteLine();
 
 			}
 
@@ -93,11 +97,14 @@ namespace BattleShip
 		public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
 		{
 
-			string s = "\t  |  01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 \t  |  01 02 03 04 05 06 07 08 09 10 11 12 13 14 15";
-			string s2 = "\t--|-----------------------------------------------\t--|-----------------------------------------------";
+			string s = "\t------------------------------------------------------------------------------------------------------------------------------------------------------------";
+			string s2 = "\t-----------------------------------------------------------------------------------------------------------------------------------------------------------";
 
-			//Console.WriteLine(s);
-			//Console.WriteLine(s2);
+			// need to fix this
+			//Make the first line display same as the side (I need to figure out how to scale the top like the side does)
+
+			Console.WriteLine(s);
+			Console.WriteLine(s2);
 
 			//Lines 1-9 because 2 digit numbers messup the pattern
 			for (int i = 0; i < (arrx-1); i++)
