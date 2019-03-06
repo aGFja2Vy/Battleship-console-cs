@@ -165,9 +165,9 @@ namespace BattleShip
 				do
 				{
 					Console.WriteLine("Where do you want to place your '# # # # #' ship? (x)");
-					arrx = Console.Read();
+					coorx = Console.ReadKey().KeyChar;
 					Console.WriteLine("Where do you want to place your ship '# # # # #' ship? (y)");
-					arry = Console.Read();
+					coory = Console.ReadKey().KeyChar;
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
@@ -188,14 +188,14 @@ namespace BattleShip
 				do
 				{
 					Console.WriteLine("Where do you want to place your '# # # #' ship? (x)");
-					arrx = Console.Read();
+					coorx = Console.ReadKey().KeyChar;
 					Console.WriteLine("Where do you want to place your ship '# # # #' ship? (y)");
-					arry = Console.Read();
+					coory = Console.ReadKey().KeyChar;
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
 					Console.WriteLine("Right to Left: 2");
-					veiw = Console.Read();
+					veiw = Console.ReadKey().KeyChar;
 
 					if ((coorx >= (arrx - 1)) || (coorx < 1))
 						Broken = true;
@@ -211,14 +211,14 @@ namespace BattleShip
 				do
 				{
 					Console.WriteLine("Where do you want to place your '# # #' ship? (x)");
-					arrx = Console.Read();
+					coorx = Console.ReadKey().KeyChar;
 					Console.WriteLine("Where do you want to place your ship '# # #' ship? (y)");
-					arry = Console.Read();
+					coory = Console.ReadKey().KeyChar;
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
 					Console.WriteLine("Right to Left: 2");
-					veiw = Console.Read();
+					veiw = Console.ReadKey().KeyChar;
 
 					if ((coorx >= (arrx - 1)) || (coorx < 1))
 						Broken = true;
@@ -234,14 +234,14 @@ namespace BattleShip
 				do
 				{
 					Console.WriteLine("Where do you want to place your '# #' ship? (x)");
-					arrx = Console.Read();
+					coorx = Console.ReadKey().KeyChar;
 					Console.WriteLine("Where do you want to place your ship '# #' ship? (y)");
-					arry = Console.Read();
+					coory = Console.ReadKey().KeyChar;
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
 					Console.WriteLine("Right to Left: 2");
-					veiw = Console.Read();
+					veiw = Console.ReadKey().KeyChar;
 
 					if ((coorx >= (arrx - 1)) || (coorx < 1))
 						Broken = true;
@@ -255,9 +255,6 @@ namespace BattleShip
 				} while (ship2 >= 1);
 
 			} while (Broken);
-
-
-
 		}
 	}
 
