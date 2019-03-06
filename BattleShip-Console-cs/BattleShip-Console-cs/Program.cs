@@ -20,15 +20,13 @@ namespace BattleShip
 			char[,] Left_Board = new char[x, y];
 			char[,] AI_Board = new char[x, y];
 
-			Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
-
 			Board.Set_Board(Right_Board, x, y);
 			Board.Set_Board(Left_Board, x, y);
 			Board.Set_Board(AI_Board, x, y);
 
+			Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
+
 			Player.Display_Board(Left_Board, Right_Board, x, y);
-
-
 
 			Console.WriteLine("Press ANY Key To Quit");
 			Console.ReadKey();
@@ -53,24 +51,25 @@ namespace BattleShip
 			if ((answer == 'Y') || (answer == 'y'))
 			{
 				Console.WriteLine("How many 5 long ships do you want?");
-				ship5 = Console.ReadKey().KeyChar;
+				ship5 = Convert.ToInt32(Console.ReadLine());
 				Console.WriteLine();
 
 				Console.WriteLine("How many 4 long ships do you want?");
-				ship4 = Console.ReadKey().KeyChar;
+				ship4 = Convert.ToInt32(Console.ReadLine());
 				Console.WriteLine();
 
 				Console.WriteLine("How many 3 long ships do you want?");
-				ship3 = Console.ReadKey().KeyChar;
+				ship3 = Convert.ToInt32(Console.ReadLine());
 				Console.WriteLine();
 
 				Console.WriteLine("How many 2 long ships do you want?");
-				ship2 = Console.ReadKey().KeyChar;
+				ship2 = Convert.ToInt32(Console.ReadLine());
 				Console.WriteLine();
 			}
 
 			Console.WriteLine("Would you like to change the default board size? (Default = 15x15) (Y/N)");
 			answer = Console.ReadKey().KeyChar;
+			Console.WriteLine();
 
 			if ((answer == 'Y') || (answer == 'y'))
 			{
@@ -160,101 +159,273 @@ namespace BattleShip
 
 			do
 			{
-				Broken = false;
-
 				do
 				{
+					Broken = false;
+
 					Console.WriteLine("Where do you want to place your '# # # # #' ship? (x)");
-					coorx = Console.ReadKey().KeyChar;
+					coorx = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 					Console.WriteLine("Where do you want to place your ship '# # # # #' ship? (y)");
-					coory = Console.ReadKey().KeyChar;
+					coory = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
-					Console.WriteLine("Right to Left: 2");
-					veiw = Console.Read();
+					Console.WriteLine("Left to Right: 2");
+					veiw = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					if ((coorx >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
 						Broken = true;
+					}
 					if ((coory >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
 						Broken = true;
-					if ((veiw != 1) || (veiw != 2))
+					}
+
+					if (((coorx - 4) >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
 						Broken = true;
+					}
+					if (((coory - 4) >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
+						Broken = true;
+					}
 
-					ship5--;
+					if ((veiw != 1) && (veiw != 2))
+					{
+						Console.WriteLine("Invalid rotaion");
+						Broken = true;
+					}
 
-				} while (ship5 >= 1);
+				} while (Broken == true);
 
+				if (veiw == 1)
+				{
+					board[coorx, coory] = '#';
+					board[coorx, (coory+1)] = '#';
+					board[coorx, (coory+2)] = '#';
+					board[coorx, (coory+3)] = '#';
+					board[coorx, (coory+4)] = '#';
+				}
+				else
+				{
+					board[coorx, coory] = '#';
+					board[(coorx+1), coory] = '#';
+					board[(coorx+2), coory] = '#';
+					board[(coorx+3), coory] = '#';
+					board[(coorx+4), coory] = '#';
+				}
+
+				ship5--;
+
+			} while (ship5 >= 1);
+
+			do
+			{
 				do
 				{
+					Broken = false;
+
 					Console.WriteLine("Where do you want to place your '# # # #' ship? (x)");
-					coorx = Console.ReadKey().KeyChar;
+					coorx = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 					Console.WriteLine("Where do you want to place your ship '# # # #' ship? (y)");
-					coory = Console.ReadKey().KeyChar;
+					coory = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
-					Console.WriteLine("Right to Left: 2");
-					veiw = Console.ReadKey().KeyChar;
+					Console.WriteLine("Left to Right: 2");
+					veiw = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					if ((coorx >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
 						Broken = true;
+					}
 					if ((coory >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
 						Broken = true;
-					if ((veiw != 1) || (veiw != 2))
+					}
+
+					if (((coorx - 3) >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
 						Broken = true;
+					}
+					if (((coory - 3) >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
+						Broken = true;
+					}
 
-					ship4--;
+					if ((veiw != 1) && (veiw != 2))
+					{
+						Console.WriteLine("Invalid rotaion");
+						Broken = true;
+					}
 
-				} while (ship4 >= 1);
+				} while (Broken == true);
 
+				if (veiw == 1)
+				{
+					board[coorx, coory] = '#';
+					board[coorx, (coory + 1)] = '#';
+					board[coorx, (coory + 2)] = '#';
+					board[coorx, (coory + 3)] = '#';
+				}
+				else
+				{
+					board[coorx, coory] = '#';
+					board[(coorx + 1), coory] = '#';
+					board[(coorx + 2), coory] = '#';
+					board[(coorx + 3), coory] = '#';
+				}
+
+				ship4--;
+
+			} while (ship4 >= 1);
+
+			do
+			{
 				do
 				{
+					Broken = false;
+
 					Console.WriteLine("Where do you want to place your '# # #' ship? (x)");
-					coorx = Console.ReadKey().KeyChar;
+					coorx = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 					Console.WriteLine("Where do you want to place your ship '# # #' ship? (y)");
-					coory = Console.ReadKey().KeyChar;
+					coory = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
-					Console.WriteLine("Right to Left: 2");
-					veiw = Console.ReadKey().KeyChar;
+					Console.WriteLine("Left to Right: 2");
+					veiw = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					if ((coorx >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
 						Broken = true;
+					}
 					if ((coory >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
 						Broken = true;
+					}
+
+					if (((coorx - 2) >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
+						Broken = true;
+					}
+					if (((coory - 2) >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
+						Broken = true;
+					}
+
 					if ((veiw != 1) || (veiw != 2))
+					{
+						Console.WriteLine("Invalid rotaion");
 						Broken = true;
+					}
 
-					ship3--;
+				} while (Broken == true);
 
-				} while (ship3 >= 1);
+				if (veiw == 1)
+				{
+					board[coorx, coory] = '#';
+					board[coorx, (coory + 1)] = '#';
+					board[coorx, (coory + 2)] = '#';
+				}
+				else
+				{
+					board[coorx, coory] = '#';
+					board[(coorx + 1), coory] = '#';
+					board[(coorx + 2), coory] = '#';
+				}
 
+				ship3--;
+
+			} while (ship3 >= 1);
+
+			do
+			{
 				do
 				{
-					Console.WriteLine("Where do you want to place your '# #' ship? (x)");
-					coorx = Console.ReadKey().KeyChar;
-					Console.WriteLine("Where do you want to place your ship '# #' ship? (y)");
-					coory = Console.ReadKey().KeyChar;
+					Broken = false;
+
+					Console.WriteLine("Where do you want to place your '# # # # #' ship? (x)");
+					coorx = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
+					Console.WriteLine("Where do you want to place your ship '# # # # #' ship? (y)");
+					coory = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					Console.WriteLine("How would you like your ship placed?");
 					Console.WriteLine("Top to Bottom: 1");
-					Console.WriteLine("Right to Left: 2");
-					veiw = Console.ReadKey().KeyChar;
+					Console.WriteLine("Left to Right: 2");
+					veiw = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
 
 					if ((coorx >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
 						Broken = true;
+					}
 					if ((coory >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
 						Broken = true;
+					}
+
+					if (((coorx - 1) >= (arrx - 1)) || (coorx < 1))
+					{
+						Console.WriteLine("Out Of The Array (x)");
+						Broken = true;
+					}
+					if (((coory - 1) >= (arry - 1)) || (coory < 1))
+					{
+						Console.WriteLine("Out Of The Array (y)");
+						Broken = true;
+					}
+
 					if ((veiw != 1) || (veiw != 2))
+					{
+						Console.WriteLine("Invalid rotaion");
 						Broken = true;
+					}
 
-					ship2--;
+				} while (Broken == true);
 
-				} while (ship2 >= 1);
+				if (veiw == 1)
+				{
+					board[coorx, coory] = '#';
+					board[coorx, (coory + 1)] = '#';
+				}
+				else
+				{
+					board[coorx, coory] = '#';
+					board[(coorx + 1), coory] = '#';
+				}
 
-			} while (Broken);
+				ship2--;
+
+			} while (ship2 >= 1);
+
+
 		}
 	}
 
