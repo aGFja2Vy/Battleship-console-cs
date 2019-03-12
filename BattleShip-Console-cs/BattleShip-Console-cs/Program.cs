@@ -42,7 +42,7 @@ namespace BattleShip
             ship4 = 1;
             ship3 = 2;
             ship2 = 1;
-			bool broken = false;
+            bool broken = false;
 
             Console.WriteLine("Would you like to change the number of ships? (Default = 1(# # # # #) 1(# # # #) 2(# # #) 1(# #)) (Y/N)");
 
@@ -74,58 +74,58 @@ namespace BattleShip
 
             if ((answer == 'Y') || (answer == 'y'))
             {
-				do
-				{
-					broken = false;
-					try
-					{
-						Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
-						answer_int = Convert.ToInt32(Console.ReadLine());
-						x = answer_int + 1;
-						Console.WriteLine();
+                do
+                {
+                    broken = false;
+                    try
+                    {
+                        Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
+                        answer_int = Convert.ToInt32(Console.ReadLine());
+                        x = answer_int + 1;
+                        Console.WriteLine();
 
-						if ((x <= 9) || (x >= 100))
-						{
-							Console.WriteLine("Hey i belive that number is out of bounds.");
-							broken = true;
-						}
+                        if ((x <= 9) || (x >= 100))
+                        {
+                            Console.WriteLine("Hey i belive that number is out of bounds.");
+                            broken = true;
+                        }
 
-					}
-					catch (FormatException)
-					{
-						Console.WriteLine("Hey that charicter is not allowed. Try again.");
-						broken = true;
-					}
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Hey that charicter is not allowed. Try again.");
+                        broken = true;
+                    }
 
-				} while (broken);
+                } while (broken);
 
-				do
-				{
-					broken = false;
-					try
-					{
-						Console.WriteLine("What is the Hight of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
-						answer_int = Convert.ToInt32(Console.ReadLine());
-						y = answer_int + 1;
-						Console.WriteLine();
+                do
+                {
+                    broken = false;
+                    try
+                    {
+                        Console.WriteLine("What is the Hight of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
+                        answer_int = Convert.ToInt32(Console.ReadLine());
+                        y = answer_int + 1;
+                        Console.WriteLine();
 
-						if ((y <= 9) || (y >= 100))
-						{
-							Console.WriteLine("Hey i belive that number is out of bounds.");
-							broken = true;
-						}
+                        if ((y <= 9) || (y >= 100))
+                        {
+                            Console.WriteLine("Hey i belive that number is out of bounds.");
+                            broken = true;
+                        }
 
-					}
+                    }
 
-					catch (FormatException)
-					{
-						Console.WriteLine("Hey that charicter is not allowed.");
-						broken = true;
-					}
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Hey that charicter is not allowed.");
+                        broken = true;
+                    }
 
-				} while (broken);
+                } while (broken);
 
-			}
+            }
 
         }
 
@@ -137,46 +137,46 @@ namespace BattleShip
         public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
         {
 
-			//This is the x part of the board
-			Console.Write("\t  |");
+            //This is the x part of the board
+            Console.Write("\t  |");
 
-			for (int left = 1; left < arrx; left++)
-			{
-				Console.Write(left + " ");
-				if(left < 10)
-					Console.Write(" ");
-			}
+            for (int left = 1; left < arrx; left++)
+            {
+                Console.Write(left + " ");
+                if (left < 10)
+                    Console.Write(" ");
+            }
 
-			Console.Write("\t  |");
+            Console.Write("\t  |");
 
-			for (int right = 1; right < arrx; right++)
-			{
-				Console.Write(right + " ");
+            for (int right = 1; right < arrx; right++)
+            {
+                Console.Write(right + " ");
 
-				if (right < 10)
-					Console.Write(" ");
-			}
+                if (right < 10)
+                    Console.Write(" ");
+            }
 
-			Console.WriteLine();
+            Console.WriteLine();
 
-			Console.Write("\t ---");
+            Console.Write("\t ---");
 
-			for (int seperator = 1; seperator < arrx; seperator++)
-			{
-				Console.Write("---");
-			}
+            for (int seperator = 1; seperator < arrx; seperator++)
+            {
+                Console.Write("---");
+            }
 
-			Console.Write("\t ---");
+            Console.Write("\t ---");
 
-			for (int seperator = 1; seperator < arrx; seperator++)
-			{
-				Console.Write("---");
-			}
-			//End of top part
+            for (int seperator = 1; seperator < arrx; seperator++)
+            {
+                Console.Write("---");
+            }
+            //End of top part
 
-			//This is the y part of the board and the actual board
-			Console.WriteLine();
-			for (int i = 0; i < (arry - 1); i++)
+            //This is the y part of the board and the actual board
+            Console.WriteLine();
+            for (int i = 0; i < (arry - 1); i++)
             {
                 if (i < 9)
                     Console.Write("\t" + (i + 1) + " |  ");
