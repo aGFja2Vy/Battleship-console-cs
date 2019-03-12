@@ -169,73 +169,96 @@ namespace BattleShip
         public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
         {
 
-            //This is the x part of the board
-            Console.Write("\t  |");
+			//This is the x part of the board
+			for (int x = 0; x < 2; x++)
+			{
+				Console.Write("\t  |");
 
-            for (int left = 1; left < arrx; left++)
-            {
-                Console.Write(left + " ");
-                if (left < 10)
-                    Console.Write(" ");
-            }
-
-            Console.Write("\t  |");
-
-            for (int right = 1; right < arrx; right++)
-            {
-                Console.Write(right + " ");
-
-                if (right < 10)
-                    Console.Write(" ");
-            }
+				for (int left = 1; left < arrx; left++)
+				{
+					Console.Write(left + " ");
+					if (left < 10)
+						Console.Write(" ");
+				}
+			}
 
             Console.WriteLine();
 
-            Console.Write("\t ---");
+			for (int x = 0; x < 2; x++)
+			{
+				Console.Write("\t--|");
 
-            for (int seperator = 1; seperator < arrx; seperator++)
-            {
-                Console.Write("---");
-            }
+				for (int seperator = 1; seperator < arrx; seperator++)
+					Console.Write("---");
+			}
 
-            Console.Write("\t ---");
-
-            for (int seperator = 1; seperator < arrx; seperator++)
-            {
-                Console.Write("---");
-            }
             //End of top part
 
             //This is the y part of the board and the actual board
             Console.WriteLine();
+
             for (int i = 0; i < (arry - 1); i++)
             {
-                if (i < 9)
-                    Console.Write("\t" + (i + 1) + " |  ");
-                else
-                    Console.Write("\t" + (i + 1) + "|  ");
+				if (i < 9)
+					Console.Write("\t" + (i + 1) + " |  ");
+				else
+					Console.Write("\t" + (i + 1) + "|  ");
+				
+				for (int j = 0; j < (arrx - 1); j++)
+					Console.Write(board[j, i] + "  ");
 
-                for (int j = 0; j < (arrx - 1); j++)
-                {
-                    Console.Write(board[j, i] + "  ");
-                }
+				Console.Write("\t");
 
-                Console.Write("\t");
+				if (i < 9)
+					Console.Write("\t" + (i + 1) + " |  ");
+				else
+					Console.Write("\t" + (i + 1) + "|  ");
 
-                if (i < 9)
-                    Console.Write((i + 1) + " |  ");
-                else
-                    Console.Write((i + 1) + "|  ");
-
-                for (int j = 0; j < (arrx - 1); j++)
-                {
+				for (int j = 0; j < (arrx - 1); j++)
                     Console.Write(right_board[j, i] + "  ");
-                }
 
                 Console.WriteLine();
             }
         }
-    }
+
+		public static void Display_Board(char[,] board, int arrx, int arry)
+		{
+
+			//This is the x part of the board
+			Console.Write("\t  |");
+
+			for (int left = 1; left < arrx; left++)
+			{
+				Console.Write(left + " ");
+				if (left < 10)
+					Console.Write(" ");
+			}
+
+			Console.WriteLine();
+
+			Console.Write("\t ---");
+
+			for (int seperator = 1; seperator < arrx; seperator++)
+				Console.Write("---");
+
+			//End of top part
+
+			//This is the y part of the board and the actual board
+			Console.WriteLine();
+			for (int i = 0; i < (arry - 1); i++)
+			{
+				if (i < 9)
+					Console.Write("\t" + (i + 1) + " |  ");
+				else
+					Console.Write("\t" + (i + 1) + "|  ");
+
+				for (int j = 0; j < (arrx - 1); j++)
+					Console.Write(board[j, i] + "  ");
+
+				Console.WriteLine();
+			}
+		}
+	}
 
 
     class Board
@@ -246,9 +269,7 @@ namespace BattleShip
             for (int i = 0; i < y; i++)
             {
                 for (int j = 0; j < x; j++)
-                {
                     board[j, i] = ' ';
-                }
             }
         }
 
@@ -268,6 +289,7 @@ namespace BattleShip
                     Console.WriteLine("Where do you want to place your '# # # # #' ship? (x)");
                     coorx = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
+
                     Console.WriteLine("Where do you want to place your ship '# # # # #' ship? (y)");
                     coory = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
@@ -283,6 +305,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -294,6 +317,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if (((coory - 4) >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -326,8 +350,9 @@ namespace BattleShip
                 }
 
                 ship5--;
+				Player.Display_Board(board, arrx, arry);
 
-            } while (ship5 >= 1);
+			} while (ship5 >= 1);
 
             do
             {
@@ -338,6 +363,7 @@ namespace BattleShip
                     Console.WriteLine("Where do you want to place your '# # # #' ship? (x)");
                     coorx = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
+
                     Console.WriteLine("Where do you want to place your ship '# # # #' ship? (y)");
                     coory = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
@@ -353,6 +379,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -364,6 +391,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if (((coory - 3) >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -394,8 +422,9 @@ namespace BattleShip
                 }
 
                 ship4--;
+				Player.Display_Board(board, arrx, arry);
 
-            } while (ship4 >= 1);
+			} while (ship4 >= 1);
 
             do
             {
@@ -406,6 +435,7 @@ namespace BattleShip
                     Console.WriteLine("Where do you want to place your '# # #' ship? (x)");
                     coorx = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
+
                     Console.WriteLine("Where do you want to place your ship '# # #' ship? (y)");
                     coory = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
@@ -421,6 +451,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -432,6 +463,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if (((coory - 2) >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -460,8 +492,9 @@ namespace BattleShip
                 }
 
                 ship3--;
+				Player.Display_Board(board, arrx, arry);
 
-            } while (ship3 >= 1);
+			} while (ship3 >= 1);
 
             do
             {
@@ -472,6 +505,7 @@ namespace BattleShip
                     Console.WriteLine("Where do you want to place your '# #' ship? (x)");
                     coorx = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
+
                     Console.WriteLine("Where do you want to place your ship '# #' ship? (y)");
                     coory = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
@@ -487,6 +521,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -498,6 +533,7 @@ namespace BattleShip
                         Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
+
                     if (((coory - 1) >= (arry - 1)) || (coory < 1))
                     {
                         Console.WriteLine("Out Of The Array (y)");
@@ -524,14 +560,9 @@ namespace BattleShip
                 }
 
                 ship2--;
+				Player.Display_Board(board, arrx, arry);
 
-            } while (ship2 >= 1);
+			} while (ship2 >= 1);
         }
-    }
-
-    class AI
-    {
-        public int x = 0;
-        public int y = 0;
     }
 }
