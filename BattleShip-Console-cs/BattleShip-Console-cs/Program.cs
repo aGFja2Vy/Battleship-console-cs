@@ -39,12 +39,12 @@ namespace BattleShip
             y = 16;
             int answer_int = 0;
             ship5 = 1;
-            ship4 = 2;
-            ship3 = 1;
+            ship4 = 1;
+            ship3 = 2;
             ship2 = 1;
+			bool broken = false;
 
-            Console.WriteLine("Would you like to change the number of ships? (Y/N)");
-            Console.WriteLine();
+            Console.WriteLine("Would you like to change the number of ships? (Default = 1(# # # # #) 1(# # # #) 2(# # #) 1(# #)) (Y/N)");
 
             char answer = Console.ReadKey().KeyChar;
             Console.WriteLine();
@@ -74,18 +74,58 @@ namespace BattleShip
 
             if ((answer == 'Y') || (answer == 'y'))
             {
+				do
+				{
+					broken = false;
+					try
+					{
+						Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
+						answer_int = Convert.ToInt32(Console.ReadLine());
+						x = answer_int + 1;
+						Console.WriteLine();
 
-                Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
-                answer_int = Convert.ToInt32(Console.ReadLine());
-                x = answer_int + 1;
-                Console.WriteLine();
+						if ((x <= 9) || (x >= 100))
+						{
+							Console.WriteLine("Hey i belive that number is out of bounds.");
+							broken = true;
+						}
 
-                Console.WriteLine("What is the Hight of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
-                answer_int = Convert.ToInt32(Console.ReadLine());
-                y = answer_int + 1;
-                Console.WriteLine();
+					}
+					catch (FormatException)
+					{
+						Console.WriteLine("Hey that charicter is not allowed. Try again.");
+						broken = true;
+					}
 
-            }
+				} while (broken);
+
+				do
+				{
+					broken = false;
+					try
+					{
+						Console.WriteLine("What is the Hight of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
+						answer_int = Convert.ToInt32(Console.ReadLine());
+						y = answer_int + 1;
+						Console.WriteLine();
+
+						if ((y <= 9) || (y >= 100))
+						{
+							Console.WriteLine("Hey i belive that number is out of bounds.");
+							broken = true;
+						}
+
+					}
+
+					catch (FormatException)
+					{
+						Console.WriteLine("Hey that charicter is not allowed.");
+						broken = true;
+					}
+
+				} while (broken);
+
+			}
 
         }
 
@@ -97,26 +137,55 @@ namespace BattleShip
         public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
         {
 
-            string s = "20----------------------------------------------------------20\t";
-            string s2 = "30-----------------------------------------------------------30\n";
+			//This is the x part of the board
+			Console.Write("\t  |");
 
-            // need to fix this
-            //Make the first line display same as the side (I need to figure out how to scale the top like the side does)
+			for (int left = 1; left < arrx; left++)
+			{
+				Console.Write(left + " ");
+				if(left < 10)
+					Console.Write(" ");
+			}
 
-            Console.Write(s);
-            Console.Write(s2);
+			Console.Write("\t  |");
 
-            //Lines 1-9 because 2 digit numbers messup the pattern
-            for (int i = 0; i < (arrx - 1); i++)
+			for (int right = 1; right < arrx; right++)
+			{
+				Console.Write(right + " ");
+
+				if (right < 10)
+					Console.Write(" ");
+			}
+
+			Console.WriteLine();
+
+			Console.Write("\t ---");
+
+			for (int seperator = 1; seperator < arrx; seperator++)
+			{
+				Console.Write("---");
+			}
+
+			Console.Write("\t ---");
+
+			for (int seperator = 1; seperator < arrx; seperator++)
+			{
+				Console.Write("---");
+			}
+			//End of top part
+
+			//This is the y part of the board and the actual board
+			Console.WriteLine();
+			for (int i = 0; i < (arry - 1); i++)
             {
                 if (i < 9)
                     Console.Write("\t" + (i + 1) + " |  ");
                 else
                     Console.Write("\t" + (i + 1) + "|  ");
 
-                for (int j = 0; j < (arry - 1); j++)
+                for (int j = 0; j < (arrx - 1); j++)
                 {
-                    Console.Write(board[i, j] + "  ");
+                    Console.Write(board[j, i] + "  ");
                 }
 
                 Console.Write("\t");
@@ -126,9 +195,9 @@ namespace BattleShip
                 else
                     Console.Write((i + 1) + "|  ");
 
-                for (int j = 0; j < (arry - 1); j++)
+                for (int j = 0; j < (arrx - 1); j++)
                 {
-                    Console.Write(right_board[i, j] + "  ");
+                    Console.Write(right_board[j, i] + "  ");
                 }
 
                 Console.WriteLine();
@@ -142,11 +211,11 @@ namespace BattleShip
 
         public static void Set_Board(char[,] board, int x, int y)
         {
-            for (int i = 0; i < x; i++)
+            for (int i = 0; i < y; i++)
             {
-                for (int j = 0; j < y; j++)
+                for (int j = 0; j < x; j++)
                 {
-                    board[i, j] = ' ';
+                    board[j, i] = ' ';
                 }
             }
         }
@@ -368,10 +437,10 @@ namespace BattleShip
                 {
                     Broken = false;
 
-                    Console.WriteLine("Where do you want to place your '# # # # #' ship? (x)");
+                    Console.WriteLine("Where do you want to place your '# #' ship? (x)");
                     coorx = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
-                    Console.WriteLine("Where do you want to place your ship '# # # # #' ship? (y)");
+                    Console.WriteLine("Where do you want to place your ship '# #' ship? (y)");
                     coory = Convert.ToInt32(Console.ReadLine());
                     Console.WriteLine();
 
@@ -425,12 +494,8 @@ namespace BattleShip
                 ship2--;
 
             } while (ship2 >= 1);
-
-
         }
     }
-
-
 
     class AI
     {
@@ -438,5 +503,3 @@ namespace BattleShip
         public int y = 0;
     }
 }
-
-
