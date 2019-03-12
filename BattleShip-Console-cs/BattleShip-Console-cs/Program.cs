@@ -51,21 +51,53 @@ namespace BattleShip
 
             if ((answer == 'Y') || (answer == 'y'))
             {
-                Console.WriteLine("How many 5 long ships do you want?");
-                ship5 = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
+				try
+				{
+					Console.WriteLine("How many 5 long ships do you want?");
+					ship5 = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
+				}
+				catch (FormatException)
+				{
+					Console.WriteLine("Hey! That character is not allowed. Try again.");
+					broken = true;
+				}
 
-                Console.WriteLine("How many 4 long ships do you want?");
-                ship4 = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
+				try
+				{
+					Console.WriteLine("How many 4 long ships do you want?");
+					ship4 = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
+				}
+				catch (FormatException)
+				{
+					Console.WriteLine("Hey! That character is not allowed. Try again.");
+					broken = true;
+				}
 
-                Console.WriteLine("How many 3 long ships do you want?");
-                ship3 = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
+				try
+				{
+					Console.WriteLine("How many 3 long ships do you want?");
+					ship3 = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
+				}
+				catch (FormatException)
+				{
+					Console.WriteLine("Hey! That character is not allowed. Try again.");
+					broken = true;
+				}
 
-                Console.WriteLine("How many 2 long ships do you want?");
-                ship2 = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine();
+				try
+				{
+					Console.WriteLine("How many 2 long ships do you want?");
+					ship2 = Convert.ToInt32(Console.ReadLine());
+					Console.WriteLine();
+				}
+				catch (FormatException)
+				{
+					Console.WriteLine("Hey! That character is not allowed. Try again.");
+					broken = true;
+				}
             }
 
             Console.WriteLine("Would you like to change the default board size? (Default = 15x15) (Y/N)");
@@ -86,14 +118,14 @@ namespace BattleShip
 
                         if ((x <= 9) || (x >= 100))
                         {
-                            Console.WriteLine("Hey i belive that number is out of bounds.");
+                            Console.WriteLine("Hey! That number is out of bounds.");
                             broken = true;
                         }
 
                     }
                     catch (FormatException)
                     {
-                        Console.WriteLine("Hey that charicter is not allowed. Try again.");
+                        Console.WriteLine("Hey! That character is not allowed. Try again.");
                         broken = true;
                     }
 
