@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,140 +10,39 @@ namespace BattleShip
     {
         static void Main(string[] args)
         {
-          //defaults for the game board and the number of ships
-          int x = 1, y = 11;
-          int ship5 = 1, ship4 = 1, ship2 = 1, ship3 = 2;
 
-          //gets the gamemode choice for the switch statment
-          int answer = MainMenu();
+            int x, y;
+            int ship5, ship4, ship3, ship2;
 
-          //sets the game to match the mode they chose (1 = classic 2 = classic++ 3 = warfare 4 = warfare++)
-          //Temp idea but it wont work... I think it would work if I used new classes for the different gamemodes
-          /*
-          switch (answer)
-          {
-            case 1:
+            SetUp(out x, out y, out ship5, out ship4, out ship3, out ship2);
 
-              //creates the arrays and sets the board to all zeros based on default settings
-              char[,] Right_Board = new char[x, y];
-              char[,] Left_Board = new char[x, y];
-              char[,] AI_Board = new char[x, y];
+            char[,] Right_Board = new char[x, y];
+            char[,] Left_Board = new char[x, y];
+            char[,] AI_Board = new char[x, y];
 
-              Board.Set_Board(Right_Board, x, y);
-              Board.Set_Board(Left_Board, x, y);
-              Board.Set_Board(AI_Board, x, y);
+            Board.Set_Board(Right_Board, x, y);
+            Board.Set_Board(Left_Board, x, y);
+            Board.Set_Board(AI_Board, x, y);
 
-              break;
+            Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
 
-            case 2:
+            Player.Display_Board(Left_Board, Right_Board, x, y);
 
-              //asks for the player to pick the board settings and the number of ships
-              SetUp(out x, out y, out ship5, out ship4, out ship3, out ship2);
-
-              //sets the board, ships, and the arrays to what the player wanted
-              char[,] Right_Board = new char[x, y];
-              char[,] Left_Board = new char[x, y];
-              char[,] AI_Board = new char[x, y];
-
-              Board.Set_Board(Right_Board, x, y);
-              Board.Set_Board(Left_Board, x, y);
-              Board.Set_Board(AI_Board, x, y);
-
-              break;
-          }
-          */
-
-          //temp to get the code to compile
-          char[,] Right_Board = new char[x, y];
-          char[,] Left_Board = new char[x, y];
-          char[,] AI_Board = new char[x, y];
-          
-          //allows the player to place there ships where they want to
-          Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
-
-          //clears the board and shows the current setup so they can start shooting
-          Console.Clear();
-          Player.Display_Board(Left_Board, Right_Board, x, y);
-
-          //Temp ending while I debug that pauses what is going on and clears the terminal
-          Console.WriteLine("Press ANY Key To Quit");
-          Console.ReadKey();
-          Console.Clear();
-        }
-
-        static int MainMenu()
-        {
-          //The choice they make gets stored as answer
-          int answer;
-
-          //this loop forces the player to pick a valid gamemode before It will move on
-          while(true)
-          {
-            Console.WriteLine("Choose a gamemode.");
-            Console.WriteLine("1: Classic (default)");
-            Console.WriteLine("2: Classic++");
-            Console.WriteLine("3: Warfare");
-            Console.WriteLine("4: Warfare++");
-            Console.WriteLine("10: Show rules and gamemode explinations.");
-
-            answer = 1;
-            answer = Convert.ToInt32(Console.ReadLine());
-
-            switch (answer)
-            {
-              case 1:
-                //returns 1 for the Clasic gamemode
-                Console.Clear();
-                Console.WriteLine("You chose Classic gamemode.");
-                return 1;
-
-              case 2:
-                //returns 2 for the classic++ gamemode
-                Console.Clear();
-                Console.WriteLine("You chose Classic++.");
-                return 2;
-
-              case 3:
-                //returns 1 for the classic gamemode until the warefare gamemode is finsihed
-                Console.Clear();
-                Console.WriteLine("You chose Warfare gamemode.");
-                Console.WriteLine("This gamemode is still under development. Defaulting to classic");
-                return 1;
-
-              case 4:
-                //returns 2 for the classic++ gamemode until the warfare gamemode is finsihed
-                Console.Clear();
-                Console.WriteLine("You chose Warfare++ gamemode.");
-                Console.WriteLine("This gamemode is still under development. Defaulting to classic++");
-                return 2;
-
-              case 10:
-                //tells the player what the options are and what the differences are
-                Console.Clear();
-                Console.WriteLine("Classic: classic BattleShip with a 10x10 board and 5 ships.");
-                Console.WriteLine("Classic++: classic BattleShip but you get to choose the number of ships and the board size.");
-                Console.WriteLine("Warfare: Battleship with abilies like peek(lets you see the oppenents board but if they catch you, you will automaticly lose the game) and the AI will try harder. ");
-                Console.WriteLine("Warfare++: warfare but you can choose the number of ships and the board size.");
-                Console.WriteLine();
-                break;
-
-              default:
-                Console.WriteLine("Fine don't pick one then. You are now playing Classic.");
-                return 1;
-            }
-          }
+            Console.WriteLine("Press ANY Key To Quit");
+            Console.ReadKey();
+            Console.Clear();
         }
 
         static void SetUp(out int x, out int y, out int ship5, out int ship4, out int ship3, out int ship2)
         {
-            x = 11;
-            y = 11;
+            x = 16;
+            y = 16;
             int answer_int = 0;
             ship5 = 1;
             ship4 = 1;
             ship3 = 2;
             ship2 = 1;
-            bool Broken = false;
+            bool broken = false;
 
             Console.WriteLine("Would you like to change the number of ships? (Default = 1(# # # # #) 1(# # # #) 2(# # #) 1(# #)) (Y/N)");
 
@@ -152,98 +51,32 @@ namespace BattleShip
 
             if ((answer == 'Y') || (answer == 'y'))
             {
-                do
-                {
-                    Broken = false;
+                Console.WriteLine("How many 5 long ships do you want?");
+                ship5 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
 
-				    try
-				    {
-					    Console.WriteLine("How many 5 long ships do you want?");
-					    ship5 = Convert.ToInt32(Console.ReadLine());
-					    Console.WriteLine();
-				    }
-				    catch
-				    {
-					    Console.WriteLine("Hey! That is not allowed. Try again.");
-					    Broken = true;
-				    }
+                Console.WriteLine("How many 4 long ships do you want?");
+                ship4 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
 
-                }while(Broken);
+                Console.WriteLine("How many 3 long ships do you want?");
+                ship3 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
 
-                do
-                {
-                    Broken = false;
-
-                    try
-                    {
-                        Console.WriteLine("How many 4 long ships do you want?");
-                        ship4 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Hey! That is not allowed. Try again.");
-                        Broken = true;
-                    }
-                }while(Broken);
-
-                do
-                {
-                    Broken = false;
-
-                    try
-                    {
-                        Console.WriteLine("How many 3 long ships do you want?");
-                        ship3 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Hey! That is not allowed. Try again.");
-                        Broken = true;
-                    }
-                }while(Broken);
-
-                 do
-                 {
-                    Broken = false;
-
-                    try
-                    {
-                        Console.WriteLine("How many 2 long ships do you want?");
-                        ship2 = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Hey! That is not allowed. Try again.");
-                        Broken = true;
-                    }
-                }while(Broken);
+                Console.WriteLine("How many 2 long ships do you want?");
+                ship2 = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
             }
 
-            do
-            {
-                Broken = false;
-
-                try{
-                    Console.WriteLine("Would you like to change the default board size? (Default = 10x10) (Y/N)");
-                    answer = Console.ReadKey().KeyChar;
-                    Console.WriteLine();
-                }
-                catch
-                {
-                    Console.WriteLine("Hey! That is not allowed. Try again.");
-                    Broken = true;
-                }
-            }while(Broken);
+            Console.WriteLine("Would you like to change the default board size? (Default = 15x15) (Y/N)");
+            answer = Console.ReadKey().KeyChar;
+            Console.WriteLine();
 
             if ((answer == 'Y') || (answer == 'y'))
             {
                 do
                 {
-                    Broken = false;
-
+                    broken = false;
                     try
                     {
                         Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
@@ -253,45 +86,44 @@ namespace BattleShip
 
                         if ((x <= 9) || (x >= 100))
                         {
-                            Console.WriteLine("Hey! That number is out of bounds.");
-                            Broken = true;
+                            Console.WriteLine("Hey i belive that number is out of bounds.");
+                            broken = true;
                         }
 
                     }
-                    catch
+                    catch (FormatException)
                     {
-                        Console.WriteLine("Hey! That is not allowed. Try again.");
-                        Broken = true;
+                        Console.WriteLine("Hey that charicter is not allowed. Try again.");
+                        broken = true;
                     }
 
-                } while (Broken);
+                } while (broken);
 
                 do
                 {
-                    Broken = false;
-
+                    broken = false;
                     try
                     {
-                        Console.WriteLine("What is the height of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
+                        Console.WriteLine("What is the Hight of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
                         answer_int = Convert.ToInt32(Console.ReadLine());
                         y = answer_int + 1;
                         Console.WriteLine();
 
                         if ((y <= 9) || (y >= 100))
                         {
-                            Console.WriteLine("Hey! that number is out of bounds.");
-                            Broken = true;
+                            Console.WriteLine("Hey i belive that number is out of bounds.");
+                            broken = true;
                         }
 
                     }
 
-                    catch
+                    catch (FormatException)
                     {
-                        Console.WriteLine("Hey! that is not allowed.Try again");
-                        Broken = true;
+                        Console.WriteLine("Hey that charicter is not allowed.");
+                        broken = true;
                     }
 
-                } while (Broken);
+                } while (broken);
 
             }
 
@@ -305,97 +137,73 @@ namespace BattleShip
         public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
         {
 
-			//This is the x part of the board
-			for (int x = 0; x < 2; x++)
-			{
-				Console.Write("\t  |");
+            //This is the x part of the board
+            Console.Write("\t  |");
 
-				for (int left = 1; left < arrx; left++)
-				{
-					Console.Write(left + " ");
+            for (int left = 1; left < arrx; left++)
+            {
+                Console.Write(left + " ");
+                if (left < 10)
+                    Console.Write(" ");
+            }
 
-					if (left < 10)
-						Console.Write(" ");
-				}
-			}
+            Console.Write("\t  |");
+
+            for (int right = 1; right < arrx; right++)
+            {
+                Console.Write(right + " ");
+
+                if (right < 10)
+                    Console.Write(" ");
+            }
 
             Console.WriteLine();
 
-			for (int x = 0; x < 2; x++)
-			{
-				Console.Write("\t--|");
+            Console.Write("\t ---");
 
-				for (int seperator = 1; seperator < arrx; seperator++)
-					Console.Write("---");
-			}
+            for (int seperator = 1; seperator < arrx; seperator++)
+            {
+                Console.Write("---");
+            }
 
+            Console.Write("\t ---");
+
+            for (int seperator = 1; seperator < arrx; seperator++)
+            {
+                Console.Write("---");
+            }
             //End of top part
 
             //This is the y part of the board and the actual board
             Console.WriteLine();
-
             for (int i = 0; i < (arry - 1); i++)
             {
-				if (i < 9)
-					Console.Write("\t" + (i + 1) + " |  ");
-				else
-					Console.Write("\t" + (i + 1) + "|  ");
+                if (i < 9)
+                    Console.Write("\t" + (i + 1) + " |  ");
+                else
+                    Console.Write("\t" + (i + 1) + "|  ");
 
-				for (int j = 0; j < (arrx - 1); j++)
-					Console.Write(board[j, i] + "  ");
+                for (int j = 0; j < (arrx - 1); j++)
+                {
+                    Console.Write(board[j, i] + "  ");
+                }
 
-				Console.Write("\t");
+                Console.Write("\t");
 
-				if (i < 9)
-					Console.Write("\t" + (i + 1) + " |  ");
-				else
-					Console.Write("\t" + (i + 1) + "|  ");
+                if (i < 9)
+                    Console.Write((i + 1) + " |  ");
+                else
+                    Console.Write((i + 1) + "|  ");
 
-				for (int j = 0; j < (arrx - 1); j++)
+                for (int j = 0; j < (arrx - 1); j++)
+                {
                     Console.Write(right_board[j, i] + "  ");
+                }
 
                 Console.WriteLine();
             }
         }
-
-		public static void Display_Board(char[,] board, int arrx, int arry)
-		{
-
-			//This is the x part of the board
-			Console.Write("\t  |");
-
-			for (int left = 1; left < arrx; left++)
-			{
-				Console.Write(left + " ");
-
-				if (left < 10)
-					Console.Write(" ");
-			}
-
-			Console.WriteLine();
-			Console.Write("\t ---");
-
-			for (int seperator = 1; seperator < arrx; seperator++)
-				Console.Write("---");
-
-			//End of top part
-
-			//This is the y part of the board and the actual board
-			Console.WriteLine();
-			for (int i = 0; i < (arry - 1); i++)
-			{
-				if (i < 9)
-					Console.Write("\t" + (i + 1) + " |  ");
-				else
-					Console.Write("\t" + (i + 1) + "|  ");
-
-				for (int j = 0; j < (arrx - 1); j++)
-					Console.Write(board[j, i] + "  ");
-
-				Console.WriteLine();
-			}
-		}
-	}
+    }
 
 
     class Board
@@ -406,7 +214,9 @@ namespace BattleShip
             for (int i = 0; i < y; i++)
             {
                 for (int j = 0; j < x; j++)
+                {
                     board[j, i] = ' ';
+                }
             }
         }
 
@@ -423,75 +233,38 @@ namespace BattleShip
                 {
                     Broken = false;
 
-                    do
-                    {
-                        Broken = false;
+                    Console.WriteLine("Where do you want to place your '# # # # #' ship? (x)");
+                    coorx = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine("Where do you want to place your ship '# # # # #' ship? (y)");
+                    coory = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
-                        try
-                        {
-
-                            Console.WriteLine("Where do you want to place your '# # # # #' ship? (x)");
-                            coorx = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Hey! That is not allowed. Try again.");
-                            Broken = true;
-                        }
-                    }while(Broken);
-
-                    do {
-                        try
-                        {
-                            Console.WriteLine("Where do you want to place your '# # # # #' ship? (y)");
-                            coory = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Hey! That is not allowed. Try again.");
-                            Broken = true;
-                        }
-                }while(Broken);
-
-                do{
-                    try
-                    {
-                        Console.WriteLine("How would you like your ship placed?");
-                        Console.WriteLine("Top to Bottom: 1");
-                        Console.WriteLine("Left to Right: 2");
-                        veiw = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Hey! That is not allowed. Try again.");
-                        Broken = true;
-                    }
-                }while(Broken);
+                    Console.WriteLine("How would you like your ship placed?");
+                    Console.WriteLine("Top to Bottom: 1");
+                    Console.WriteLine("Left to Right: 2");
+                    veiw = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
                     if ((coorx >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
                     if (((coorx - 4) >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if (((coory - 4) >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
@@ -501,7 +274,7 @@ namespace BattleShip
                         Broken = true;
                     }
 
-                }while (Broken == true);
+                } while (Broken == true);
 
                 if (veiw == 1)
                 {
@@ -521,9 +294,8 @@ namespace BattleShip
                 }
 
                 ship5--;
-				Player.Display_Board(board, arrx, arry);
 
-			} while (ship5 >= 1);
+            } while (ship5 >= 1);
 
             do
             {
@@ -531,77 +303,38 @@ namespace BattleShip
                 {
                     Broken = false;
 
-                    do
-                    {
-                        Broken = false;
-                        try
-                        {
-                            Console.WriteLine("Where do you want to place your '# # # #' ship? (x)");
-                            coorx = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("There was a problem with that input. Try agian.");
-                            Broken = true;
-                        }
-                }while(Broken);
+                    Console.WriteLine("Where do you want to place your '# # # #' ship? (x)");
+                    coorx = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine("Where do you want to place your ship '# # # #' ship? (y)");
+                    coory = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
-                do
-                {
-                    Broken = false;
-                    try
-                    {
-                        Console.WriteLine("Where do you want to place your '# # # #' ship? (y)");
-                        coory = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("There was a problem with that input. Try agian.");
-                        Broken = true;
-                    }
-                }while(Broken);
-
-                do
-                {
-                    Broken = false;
-                    try
-                    {
-                        Console.WriteLine("How would you like your ship placed?");
-                        Console.WriteLine("Top to Bottom: 1");
-                        Console.WriteLine("Left to Right: 2");
-                        veiw = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("There was a problem with that input. Try agian.");
-                        Broken = true;
-                    }
-                }while(Broken);
+                    Console.WriteLine("How would you like your ship placed?");
+                    Console.WriteLine("Top to Bottom: 1");
+                    Console.WriteLine("Left to Right: 2");
+                    veiw = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
                     if ((coorx >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
                     if (((coorx - 3) >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if (((coory - 3) >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
@@ -611,7 +344,7 @@ namespace BattleShip
                         Broken = true;
                     }
 
-                } while (Broken);
+                } while (Broken == true);
 
                 if (veiw == 1)
                 {
@@ -629,9 +362,8 @@ namespace BattleShip
                 }
 
                 ship4--;
-				Player.Display_Board(board, arrx, arry);
 
-			} while (ship4 >= 1);
+            } while (ship4 >= 1);
 
             do
             {
@@ -639,76 +371,38 @@ namespace BattleShip
                 {
                     Broken = false;
 
-                    do
-                    {
-                        Broken = false;
+                    Console.WriteLine("Where do you want to place your '# # #' ship? (x)");
+                    coorx = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine("Where do you want to place your ship '# # #' ship? (y)");
+                    coory = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
-                        try
-                        {
-                            Console.WriteLine("Where do you want to place '# # #' ship? (x)");
-                            coorx = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("There was a problem with that input. Try agian.");
-                            Broken = true;
-                        }
-                }while(Broken);
-
-                do
-                {
-                    Broken = false;
-                    try{
-                        Console.WriteLine("Where do you want to place your '# # #' ship? (y)");
-                        coory = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("There was a problem with that input. Try agian.");
-                        Broken = true;
-                    }
-                }while(Broken);
-
-                do
-                {
-                    Broken = false;
-                    try{
-                        Console.WriteLine("How would you like your ship placed?");
-                        Console.WriteLine("Top to Bottom: 1");
-                        Console.WriteLine("Left to Right: 2");
-                        veiw = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("There was a problem with that input. Try agian.");
-                        Broken = true;
-                    }
-                }while(Broken);
+                    Console.WriteLine("How would you like your ship placed?");
+                    Console.WriteLine("Top to Bottom: 1");
+                    Console.WriteLine("Left to Right: 2");
+                    veiw = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
                     if ((coorx >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
                     if (((coorx - 2) >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if (((coory - 2) >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
@@ -734,9 +428,8 @@ namespace BattleShip
                 }
 
                 ship3--;
-				Player.Display_Board(board, arrx, arry);
 
-			} while (ship3 >= 1);
+            } while (ship3 >= 1);
 
             do
             {
@@ -744,89 +437,48 @@ namespace BattleShip
                 {
                     Broken = false;
 
-                    do
-                    {
-                        Broken = false;
-                        try
-                        {
-                            Console.WriteLine("Where do you want to place your '# #' ship? (x)");
-                            coorx = Convert.ToInt32(Console.ReadLine());
-                            Console.WriteLine();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("There was a problem with that input. Try agian.");
-                            Broken = true;
-                        }
-                }while(Broken);
+                    Console.WriteLine("Where do you want to place your '# #' ship? (x)");
+                    coorx = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
+                    Console.WriteLine("Where do you want to place your ship '# #' ship? (y)");
+                    coory = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
-                do
-                {
-                    Broken = false;
-
-                    try
-                    {
-                        Console.WriteLine("Where do you want to place your '# #' ship? (y)");
-                        coory = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("There was a problem with that input. Try agian.");
-                        Broken = true;
-                    }
-                }while(Broken);
-
-                do
-                {
-                    Broken = false;
-
-                    try
-                    {
-                        Console.WriteLine("How would you like your ship placed?");
-                        Console.WriteLine("Top to Bottom: 1");
-                        Console.WriteLine("Left to Right: 2");
-                        veiw = Convert.ToInt32(Console.ReadLine());
-                        Console.WriteLine();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("There was a problem with that input. Try agian.");
-                        Broken = true;
-                    }
-                }while(Broken);
+                    Console.WriteLine("How would you like your ship placed?");
+                    Console.WriteLine("Top to Bottom: 1");
+                    Console.WriteLine("Left to Right: 2");
+                    veiw = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine();
 
                     if ((coorx >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if ((coory >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
                     if (((coorx - 1) >= (arrx - 1)) || (coorx < 1))
                     {
-                        Console.WriteLine("Your length value (X) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (x)");
                         Broken = true;
                     }
-
                     if (((coory - 1) >= (arry - 1)) || (coory < 1))
                     {
-                        Console.WriteLine("Your height value (Y) is invalid. Try again.");
+                        Console.WriteLine("Out Of The Array (y)");
                         Broken = true;
                     }
 
                     if ((veiw != 1) && (veiw != 2))
                     {
-                        Console.WriteLine("Invalid rotaion. Try again.");
+                        Console.WriteLine("Invalid rotaion");
                         Broken = true;
                     }
 
-                } while (Broken);
+                } while (Broken == true);
 
                 if (veiw == 1)
                 {
@@ -840,10 +492,14 @@ namespace BattleShip
                 }
 
                 ship2--;
-				Player.Display_Board(board, arrx, arry);
 
-			}while (ship2 >= 1);
-
+            } while (ship2 >= 1);
         }
+    }
+
+    class AI
+    {
+        public int x = 0;
+        public int y = 0;
     }
 }
