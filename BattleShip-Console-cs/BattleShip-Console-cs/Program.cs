@@ -10,34 +10,134 @@ namespace BattleShip
     {
         static void Main(string[] args)
         {
+          //defaults for the game board and the number of ships
+          int x = 1, y = 11;
+          int ship5 = 1, ship4 = 1, ship2 = 1, ship3 = 2;
 
-            int x, y;
-            int ship5, ship4, ship3, ship2;
+          //gets the gamemode choice for the switch statment
+          int answer = MainMenu();
 
-            SetUp(out x, out y, out ship5, out ship4, out ship3, out ship2);
+          //sets the game to match the mode they chose (1 = classic 2 = classic++ 3 = warfare 4 = warfare++)
+          //Temp idea but it wont work... I think it would work if I used new classes for the different gamemodes
+          /*
+          switch (answer)
+          {
+            case 1:
 
-            char[,] Right_Board = new char[x, y];
-            char[,] Left_Board = new char[x, y];
-            char[,] AI_Board = new char[x, y];
+              //creates the arrays and sets the board to all zeros based on default settings
+              char[,] Right_Board = new char[x, y];
+              char[,] Left_Board = new char[x, y];
+              char[,] AI_Board = new char[x, y];
 
-            Board.Set_Board(Right_Board, x, y);
-            Board.Set_Board(Left_Board, x, y);
-            Board.Set_Board(AI_Board, x, y);
+              Board.Set_Board(Right_Board, x, y);
+              Board.Set_Board(Left_Board, x, y);
+              Board.Set_Board(AI_Board, x, y);
 
-            Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
+              break;
 
-            Console.Clear();
-            Player.Display_Board(Left_Board, Right_Board, x, y);
+            case 2:
 
-            Console.WriteLine("Press ANY Key To Quit");
-            Console.ReadKey();
-            Console.Clear();
+              //asks for the player to pick the board settings and the number of ships
+              SetUp(out x, out y, out ship5, out ship4, out ship3, out ship2);
+
+              //sets the board, ships, and the arrays to what the player wanted
+              char[,] Right_Board = new char[x, y];
+              char[,] Left_Board = new char[x, y];
+              char[,] AI_Board = new char[x, y];
+
+              Board.Set_Board(Right_Board, x, y);
+              Board.Set_Board(Left_Board, x, y);
+              Board.Set_Board(AI_Board, x, y);
+
+              break;
+          }
+          */
+
+          //temp to get the code to compile
+          char[,] Right_Board = new char[x, y];
+          char[,] Left_Board = new char[x, y];
+          char[,] AI_Board = new char[x, y];
+          
+          //allows the player to place there ships where they want to
+          Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
+
+          //clears the board and shows the current setup so they can start shooting
+          Console.Clear();
+          Player.Display_Board(Left_Board, Right_Board, x, y);
+
+          //Temp ending while I debug that pauses what is going on and clears the terminal
+          Console.WriteLine("Press ANY Key To Quit");
+          Console.ReadKey();
+          Console.Clear();
+        }
+
+        static int MainMenu()
+        {
+          //The choice they make gets stored as answer
+          int answer;
+
+          //this loop forces the player to pick a valid gamemode before It will move on
+          while(true)
+          {
+            Console.WriteLine("Choose a gamemode.");
+            Console.WriteLine("1: Classic (default)");
+            Console.WriteLine("2: Classic++");
+            Console.WriteLine("3: Warfare");
+            Console.WriteLine("4: Warfare++");
+            Console.WriteLine("10: Show rules and gamemode explinations.");
+
+            answer = 1;
+            answer = Convert.ToInt32(Console.ReadLine());
+
+            switch (answer)
+            {
+              case 1:
+                //returns 1 for the Clasic gamemode
+                Console.Clear();
+                Console.WriteLine("You chose Classic gamemode.");
+                return 1;
+
+              case 2:
+                //returns 2 for the classic++ gamemode
+                Console.Clear();
+                Console.WriteLine("You chose Classic++.");
+                return 2;
+
+              case 3:
+                //returns 1 for the classic gamemode until the warefare gamemode is finsihed
+                Console.Clear();
+                Console.WriteLine("You chose Warfare gamemode.");
+                Console.WriteLine("This gamemode is still under development. Defaulting to classic");
+                return 1;
+
+              case 4:
+                //returns 2 for the classic++ gamemode until the warfare gamemode is finsihed
+                Console.Clear();
+                Console.WriteLine("You chose Warfare++ gamemode.");
+                Console.WriteLine("This gamemode is still under development. Defaulting to classic++");
+                return 2;
+
+              case 10:
+                //tells the player what the options are and what the differences are
+                Console.Clear();
+                Console.WriteLine("Classic: classic BattleShip with a 10x10 board and 5 ships.");
+                Console.WriteLine("Classic++: classic BattleShip but you get to choose the number of ships and the board size.");
+                Console.WriteLine("Warfare: Battleship with abilies like peek(lets you see the oppenents board but if they catch you, you will automaticly lose the game) and the AI will try harder. ");
+                Console.WriteLine("Warfare++: warfare but you can choose the number of ships and the board size.");
+                Console.WriteLine();
+                break;
+
+              default:
+                Console.WriteLine("Fine don't pick one then. You are now playing Classic.");
+                return 1;
+            }
+          }
         }
 
         static void SetUp(out int x, out int y, out int ship5, out int ship4, out int ship3, out int ship2)
         {
-            x = 16;
-            y = 16;
+            x = 11;
+            y = 11;
             int answer_int = 0;
             ship5 = 1;
             ship4 = 1;
@@ -127,7 +227,7 @@ namespace BattleShip
                 Broken = false;
 
                 try{
-                    Console.WriteLine("Would you like to change the default board size? (Default = 15x15) (Y/N)");
+                    Console.WriteLine("Would you like to change the default board size? (Default = 10x10) (Y/N)");
                     answer = Console.ReadKey().KeyChar;
                     Console.WriteLine();
                 }
@@ -742,7 +842,8 @@ namespace BattleShip
                 ship2--;
 				Player.Display_Board(board, arrx, arry);
 
-			} while (ship2 >= 1);
+			}while (ship2 >= 1);
+
         }
     }
 }
