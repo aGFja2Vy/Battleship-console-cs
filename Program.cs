@@ -306,7 +306,7 @@ namespace BattleShip
                     {
                         Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
                         answer_int = Convert.ToInt32(Console.ReadLine());
-                        x = answer_int + 1;
+                        x = answer_int;
                         Console.WriteLine();
 
                         if ((x <= 9) || (x >= 100))
@@ -332,7 +332,7 @@ namespace BattleShip
                     {
                         Console.WriteLine("What is the height of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
                         answer_int = Convert.ToInt32(Console.ReadLine());
-                        y = answer_int + 1;
+                        y = answer_int;
                         Console.WriteLine();
 
                         if ((y <= 9) || (y >= 100))
@@ -363,7 +363,7 @@ namespace BattleShip
         {
 			//Sets the defaults
 			//there may be a way to use constructors for this instead
-            int x = 11, y = 11;
+            int x = 10, y = 10;
             int ship5 = 1, ship4 = 1, ship3 = 2, ship2 = 1;
             bool Player_Alive = true;
             bool AI_Alive = true;
@@ -424,6 +424,7 @@ namespace BattleShip
             
 			//lets them choose where they want to place there ships
             Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
+            AI.AI_Setup(AI_Board, x, y, ship5, ship4, ship3, ship2);
 
 			//repeats until someone runs out of ships
             do
@@ -468,7 +469,7 @@ public class Player
 			{
 				Console.Write("\t  |  ");
 
-				for (int left = 1; left < arrx; left++)
+				for (int left = 1; left < arrx + 1; left++)
 				{
 					Console.Write(left + " ");
 
@@ -483,7 +484,7 @@ public class Player
 			{
 				Console.Write("\t--|");
 
-				for (int seperator = 1; seperator < arrx; seperator++)
+				for (int seperator = 1; seperator < arrx + 1; seperator++)
 					Console.Write("---");
 			}
 
@@ -492,7 +493,7 @@ public class Player
             //This is the y part of the board and the actual board
             Console.WriteLine();
 
-            for (int i = 0; i < (arry - 1); i++)
+            for (int i = 0; i < arry; i++)
             {
 				//the if statment adds a space to the left side numbers so it stays alligned
 				if (i < 9)
@@ -501,7 +502,7 @@ public class Player
 					Console.Write("\t" + (i + 1) + "|  ");
 					
 				//prints the Board array with a space between each char
-				for (int j = 0; j < (arrx - 1); j++)
+				for (int j = 0; j < arrx; j++)
 					Console.Write(board[j, i] + "  ");
 					
 				// space for the right Board
@@ -513,7 +514,7 @@ public class Player
 				else
 					Console.Write((i + 1) + "|  ");
 
-				for (int j = 0; j < (arrx - 1); j++)
+				for (int j = 0; j < arrx; j++)
                     Console.Write(right_board[j, i] + "  ");
 
                 Console.WriteLine();
@@ -526,7 +527,7 @@ public class Player
 			//This is the x part of the board
 			Console.Write("\t  |  ");
 
-			for (int left = 1; left < arrx; left++)
+			for (int left = 1; left < arrx + 1; left++)
 			{
 				Console.Write(left + " ");
 
@@ -537,7 +538,7 @@ public class Player
 			Console.WriteLine();
 			Console.Write("\t--|");
 
-			for (int seperator = 1; seperator < arrx; seperator++)
+			for (int seperator = 1; seperator < arrx + 1; seperator++)
 				Console.Write("---");
 
 			//End of top part
@@ -551,7 +552,7 @@ public class Player
 				else
 					Console.Write("\t" + (i + 1) + "|  ");
 
-				for (int j = 0; j < (arrx - 1); j++)
+				for (int j = 0; j < arrx; j++)
 					Console.Write(board[j, i] + "  ");
 
 				Console.WriteLine();
@@ -1174,8 +1175,8 @@ public class Player
 		
 		public static void Random_Coor(out int x, out int y, int arrx, int arry)
 		{
-			x = rand.Next(1,arrx);
-			y = rand.Next(1,arry);
+			x = rand.Next(0, (arrx - 1));
+			y = rand.Next(0, (arry - 1));
 			
 		}
 		
@@ -1187,8 +1188,10 @@ public class Player
 		public static bool Ship_Placement(char[,] board, int x, int y, int view, int ship_Size)
 		{	
 			bool valid = Board.Check_Placement(board, x, y, view, ship_Size);
+			
 			if(!valid)
 				return false;
+				
 			if(view == 1)
 			{
 				board[x,y] = '#';
@@ -1242,6 +1245,9 @@ public class Player
 				{
 					Random_Coor(out x, out y, arrx, arry);
 					Random_View(out view);
+					Console.WriteLine();
+					Console.WriteLine("Ship #" + 5);
+					Console.WriteLine("x = " + x + "  y = " + y + "  view = " + view);
 					worked = Ship_Placement(board, x, y, view, 5);
 					if(worked)
 						ship5--;
@@ -1250,6 +1256,9 @@ public class Player
 				{
 					Random_Coor(out x, out y, arrx, arry);
 					Random_View(out view);
+					Console.WriteLine();
+					Console.WriteLine("Ship #" + 4);
+					Console.WriteLine("x = " + x + "  y = " + y + "  view = " + view);
 					worked = Ship_Placement(board, x, y, view, 4);
 					if(worked)
 						ship4--;
@@ -1258,6 +1267,9 @@ public class Player
 				{
 					Random_Coor(out x, out y, arrx, arry);
 					Random_View(out view);
+					Console.WriteLine();
+					Console.WriteLine("Ship #" + 3);
+					Console.WriteLine("x = " + x + "  y = " + y + "  view = " + view);
 					worked = Ship_Placement(board, x, y, view, 3);
 					if(worked)
 						ship3--;
@@ -1266,6 +1278,9 @@ public class Player
 				{
 					Random_Coor(out x, out y, arrx, arry);
 					Random_View(out view);
+					Console.WriteLine();
+					Console.WriteLine("Ship #" + 2);
+					Console.WriteLine("x = " + x + "  y = " + y + "  view = " + view);
 					worked = Ship_Placement(board, x, y, view, 2);
 					if(worked)
 						ship2--;
