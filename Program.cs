@@ -380,6 +380,7 @@ namespace BattleShip
 			Board.Set_Board(AI_Board, x, y);
 
 			//lets them place there ships
+			Player.Display_Board(Left_Board, Right_Board, x, y);
 			Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
 			AI.AI_Setup(AI_Board, x, y, ship5, ship4, ship3, ship2);
 
@@ -424,6 +425,7 @@ namespace BattleShip
 			Board.Set_Board(AI_Board, x, y);
 
 			//lets them choose where they want to place there ships
+			Player.Display_Board(Left_Board, Right_Board, x, y);
 			Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
 			AI.AI_Setup(AI_Board, x, y, ship5, ship4, ship3, ship2);
 
@@ -647,6 +649,8 @@ namespace BattleShip
 
 					do
 					{
+						Broken = false;
+
 						try
 						{
 							Console.WriteLine("Where do you want to place your '# # # # #' ship? (y)");
@@ -663,6 +667,8 @@ namespace BattleShip
 
 					do
 					{
+						Broken = false;
+
 						try
 						{
 							Console.WriteLine("How would you like your ship placed?");
@@ -678,8 +684,11 @@ namespace BattleShip
 						}
 					} while (Broken);
 
-					if (Check_Placement(board, coorx, coory, veiw, 5))
+					if (!Check_Placement(board, coorx, coory, veiw, 5))
+					{
+						Console.WriteLine("This is invalid placement according to the Check_Placement function");
 						Broken = true;
+					}
 
 					if ((coorx >= arrx) || (coorx < 0) || (coorx - 4 >= arry))
 					{
@@ -699,7 +708,7 @@ namespace BattleShip
 						Broken = true;
 					}
 
-				} while (Broken == true);
+				} while (Broken);
 
 				if (veiw == 1)
 				{
@@ -732,6 +741,7 @@ namespace BattleShip
 					do
 					{
 						Broken = false;
+
 						try
 						{
 							Console.WriteLine("Where do you want to place your '# # # #' ship? (x)");
@@ -748,6 +758,7 @@ namespace BattleShip
 					do
 					{
 						Broken = false;
+
 						try
 						{
 							Console.WriteLine("Where do you want to place your '# # # #' ship? (y)");
@@ -764,6 +775,7 @@ namespace BattleShip
 					do
 					{
 						Broken = false;
+
 						try
 						{
 							Console.WriteLine("How would you like your ship placed?");
@@ -779,8 +791,11 @@ namespace BattleShip
 						}
 					} while (Broken);
 
-					if (Check_Placement(board, coorx, coory, veiw, 4))
+					if (!Check_Placement(board, coorx, coory, veiw, 4))
+					{
+						Console.WriteLine("This is invalid placement according to the Check_Placement function");
 						Broken = true;
+					}
 
 					if ((coorx >= arrx) || (coorx < 0) || (coorx - 3 >= arry))
 					{
@@ -848,6 +863,7 @@ namespace BattleShip
 					do
 					{
 						Broken = false;
+
 						try
 						{
 							Console.WriteLine("Where do you want to place your '# # #' ship? (y)");
@@ -864,6 +880,7 @@ namespace BattleShip
 					do
 					{
 						Broken = false;
+
 						try
 						{
 							Console.WriteLine("How would you like your ship placed?");
@@ -879,8 +896,11 @@ namespace BattleShip
 						}
 					} while (Broken);
 
-					if (Check_Placement(board, coorx, coory, veiw, 3))
+					if (!Check_Placement(board, coorx, coory, veiw, 3))
+					{
+						Console.WriteLine("This is invalid placement according to the Check_Placement function");
 						Broken = true;
+					}
 
 					if ((coorx >= arrx) || (coorx < 0) || (coorx - 2 >= arry))
 					{
@@ -928,6 +948,7 @@ namespace BattleShip
 					do
 					{
 						Broken = false;
+
 						try
 						{
 							Console.WriteLine("Where do you want to place your '# #' ship? (x)");
@@ -977,8 +998,11 @@ namespace BattleShip
 						}
 					} while (Broken);
 
-					if (Check_Placement(board, coorx, coory, veiw, 2))
+					if (!Check_Placement(board, coorx, coory, veiw, 2))
+					{
+						Console.WriteLine("This is invalid placement according to the Check_Placement function");
 						Broken = true;
+					}
 
 					if ((coorx >= arrx) || (coorx < 0) || (coorx - 1 >= arry))
 					{
@@ -1265,16 +1289,16 @@ namespace BattleShip
 				try
 				{
 					int x, y;
-					if(Hit)
+					if (Hit)
 					{
-						switch(attempt)
+						switch (attempt)
 						{
 							case 1:
 								//testing to the north
 								Hity++;
 								valid = Board.Check_Valid(Right_Board, Hitx, Hity);
 								hit = Board.Check_Hit(Right_Board, Hitx, Hity);
-								if(hit)
+								if (hit)
 								{
 									Right_Board[Hitx, Hity] = 'H';
 									attempt = 1;
