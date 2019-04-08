@@ -1062,11 +1062,13 @@ namespace BattleShip
 			{
 				if (board[x, y] == ' ')
 					return true;
-				else if (board[x, y] == 'X')
+				if (board[x, y] == 'X')
 					return false;
-				else if (board[x, y] == 'H')
+				if (board[x, y] == 'H')
 					return false;
-				return true;
+				if (board[x, y] == '#')
+					return true;
+				return false;
 			}
 			catch
 			{
@@ -1298,7 +1300,7 @@ namespace BattleShip
 								Hity++;
 								valid = Board.Check_Valid(Right_Board, Hitx, Hity);
 								hit = Board.Check_Hit(Right_Board, Hitx, Hity);
-								if (hit)
+								if (hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'H';
 									attempt = 1;
@@ -1315,7 +1317,7 @@ namespace BattleShip
 								Hitx++;
 								valid = Board.Check_Valid(Right_Board, Hitx, Hity);
 								hit = Board.Check_Hit(Right_Board, Hitx, Hity);
-								if (hit)
+								if (hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'H';
 									attempt = 2;
@@ -1332,7 +1334,7 @@ namespace BattleShip
 								Hity--;
 								valid = Board.Check_Valid(Right_Board, Hitx, Hity);
 								hit = Board.Check_Hit(Right_Board, Hitx, Hity);
-								if (hit)
+								if (hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'H';
 									attempt = 3;
@@ -1349,7 +1351,7 @@ namespace BattleShip
 								Hitx--;
 								valid = Board.Check_Valid(Right_Board, Hitx, Hity);
 								hit = Board.Check_Hit(Right_Board, Hitx, Hity);
-								if (hit)
+								if (hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'H';
 									attempt = 4;
@@ -1388,6 +1390,7 @@ namespace BattleShip
 				}
 				catch
 				{
+					attempt++;
 					Broken = true;
 				}
 			} while (Broken);
