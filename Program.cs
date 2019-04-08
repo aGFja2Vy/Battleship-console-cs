@@ -1306,12 +1306,19 @@ namespace BattleShip
 									attempt = 1;
 									return;
 								}
-								else
+								else if (!hit)
 								{
 									Right_Board[Hitx, Hity] = 'X';
+									Hity--;
 									attempt++;
 									return;
 								}
+								else
+								{
+									Broken = true;
+									break;
+								}
+
 							case 2:
 								//testing to the east
 								Hitx++;
@@ -1323,11 +1330,17 @@ namespace BattleShip
 									attempt = 2;
 									return;
 								}
-								else
+								else if (!hit)
 								{
 									Right_Board[Hitx, Hity] = 'X';
+									Hitx--;
 									attempt++;
 									return;
+								}
+								else
+								{
+									Broken = true;
+									break;
 								}
 							case 3:
 								//testing to the south
@@ -1340,11 +1353,17 @@ namespace BattleShip
 									attempt = 3;
 									return;
 								}
-								else
+								else if (!hit)
 								{
 									Right_Board[Hitx, Hity] = 'X';
+									Hity++;
 									attempt++;
 									return;
+								}
+								else
+								{
+									Broken = true;
+									break;
 								}
 							case 4:
 								//testing to the west
@@ -1357,11 +1376,17 @@ namespace BattleShip
 									attempt = 4;
 									return;
 								}
-								else
+								else if (!hit)
 								{
 									Right_Board[Hitx, Hity] = 'X';
+									Hitx++;
+									attempt = 1;
 									Hit = false;
 									return;
+								}
+								else
+								{
+									throw e;
 								}
 						}
 					}
