@@ -1062,11 +1062,11 @@ namespace BattleShip
 			{
 				if (board[x, y] == ' ')
 					return true;
-				if (board[x, y] == 'X')
+				else if (board[x, y] == 'X')
 					return false;
-				if (board[x, y] == 'H')
+				else if (board[x, y] == 'H')
 					return false;
-				if (board[x, y] == '#')
+				else if (board[x, y] == '#')
 					return true;
 				return false;
 			}
@@ -1290,6 +1290,7 @@ namespace BattleShip
 
 				try
 				{
+					int fu = 0;
 					int x, y;
 					if (Hit)
 					{
@@ -1306,7 +1307,7 @@ namespace BattleShip
 									attempt = 1;
 									return;
 								}
-								else if (!hit)
+								else if (!hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'X';
 									Hity--;
@@ -1315,8 +1316,8 @@ namespace BattleShip
 								}
 								else
 								{
-									Broken = true;
-									break;
+									Hity--;
+									throw new System.ArgumentException();
 								}
 
 							case 2:
@@ -1330,7 +1331,7 @@ namespace BattleShip
 									attempt = 2;
 									return;
 								}
-								else if (!hit)
+								else if (!hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'X';
 									Hitx--;
@@ -1339,8 +1340,8 @@ namespace BattleShip
 								}
 								else
 								{
-									Broken = true;
-									break;
+									Hitx--;
+									throw new System.ArgumentException();
 								}
 							case 3:
 								//testing to the south
@@ -1353,7 +1354,7 @@ namespace BattleShip
 									attempt = 3;
 									return;
 								}
-								else if (!hit)
+								else if (!hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'X';
 									Hity++;
@@ -1362,8 +1363,8 @@ namespace BattleShip
 								}
 								else
 								{
-									Broken = true;
-									break;
+									Hity++;
+									throw new System.ArgumentException();
 								}
 							case 4:
 								//testing to the west
@@ -1376,7 +1377,7 @@ namespace BattleShip
 									attempt = 4;
 									return;
 								}
-								else if (!hit)
+								else if (!hit && valid)
 								{
 									Right_Board[Hitx, Hity] = 'X';
 									Hitx++;
@@ -1386,8 +1387,18 @@ namespace BattleShip
 								}
 								else
 								{
-									throw e;
+									Hitx++;
+									attempt = 0;
+									fu++;
+									if (fu >= 2)
+									{
+										attempt = 5;
+									}
+									throw new System.ArgumentException();
 								}
+							default:
+								Hit = false;
+								break;
 						}
 					}
 					Random_Coor(out x, out y, arrx, arry);
