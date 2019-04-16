@@ -17,7 +17,7 @@ namespace BattleShip
 
 			do
 			{
-
+				StartScreen();
 				//gets the gamemode choice for the switch statment
 				int answer = MainMenu();
 
@@ -114,6 +114,35 @@ namespace BattleShip
 			Console.Clear();
 		}
 
+		static void StartScreen()
+		{
+			Console.Clear();
+			Console.WriteLine("");
+			Console.WriteLine("");
+			Console.WriteLine("  !!!!!!!        !!!       !!!!!!!!   !!!!!!!!!    !!         !!!!!!!     !!!!!!!     !!    !!     !!!!!     !!!!!!!");
+			Console.WriteLine("  !!!  !!!      !! !!         !!         !!!       !!         !!         !!!          !!    !!      !!!      !!   !!!");
+			Console.WriteLine("  !!!!!!       !!---!!        !!         !!!       !!         !!!!!!!     !!!!!!      !!!!!!!!      !!!      !!  !!!");
+			Console.WriteLine("  !!!  !!!    !!     !!       !!         !!!       !!         !!              !!!     !!    !!      !!!      !!");
+			Console.WriteLine("  !!!!!!     !!       !!      !!         !!!       !!!!!!     !!!!!!!     !!!!!       !!    !!     !!!!!     !!");
+			Console.WriteLine("");
+			Console.WriteLine("");
+			CenterText("Welcome to Battleship the C# version");
+			CenterText("Press any button to continue...");
+			Console.ReadKey();
+			Console.Clear();
+		}
+
+		static void Rules()
+		{
+			Console.Clear();
+			CenterText("Help Screen");
+			Console.WriteLine("-- If a question has a (Y/N) at the end, pressing y or Y will accept all other keys will ");
+		}
+		static void CenterText(string str)
+		{
+			Console.SetCursorPosition((Console.WindowWidth - str.Length) / 2, Console.CursorTop);
+			Console.WriteLine(str);
+		}
 		static int MainMenu()
 		{
 			//The choice they make gets stored as answer
@@ -125,8 +154,6 @@ namespace BattleShip
 				Console.WriteLine("Choose a gamemode.");
 				Console.WriteLine("1: Classic (default)");
 				Console.WriteLine("2: Classic++");
-				Console.WriteLine("3: Warfare");
-				Console.WriteLine("4: Warfare++");
 				Console.WriteLine("10: Show rules and gamemode explinations.");
 				try
 				{
@@ -134,6 +161,7 @@ namespace BattleShip
 				}
 				catch
 				{
+					Console.WriteLine("Input is invalid. Defaulting to Classic gamemode.");
 					answer = 1;
 				}
 
@@ -142,36 +170,21 @@ namespace BattleShip
 					case 1:
 						//returns 1 for the Clasic gamemode
 						Console.Clear();
-						Console.WriteLine("You chose Classic gamemode.");
+						Console.WriteLine("You choose Classic gamemode.");
 						return 1;
 
 					case 2:
 						//returns 2 for the classic++ gamemode
 						Console.Clear();
-						Console.WriteLine("You chose Classic++.");
-						return 2;
-
-					case 3:
-						//returns 1 for the classic gamemode until the warefare gamemode is finsihed
-						Console.Clear();
-						Console.WriteLine("You chose Warfare gamemode.");
-						Console.WriteLine("This gamemode is still under development. Defaulting to classic");
-						return 1;
-
-					case 4:
-						//returns 2 for the classic++ gamemode until the warfare gamemode is finsihed
-						Console.Clear();
-						Console.WriteLine("You chose Warfare++ gamemode.");
-						Console.WriteLine("This gamemode is still under development. Defaulting to classic++");
+						Console.WriteLine("You choose Classic++.");
 						return 2;
 
 					case 10:
 						//tells the player what the options are and what the differences are
 						Console.Clear();
 						Console.WriteLine("Classic: classic BattleShip with a 10x10 board and 5 ships.");
+						Console.WriteLine();
 						Console.WriteLine("Classic++: classic BattleShip but you get to choose the number of ships and the board size.");
-						Console.WriteLine("Warfare: Battleship with abilies like peek(lets you see the oppenents board but if they catch you, you will automaticly lose the game) and the AI will try harder. ");
-						Console.WriteLine("Warfare++: warfare but you can choose the number of ships and the board size.");
 						Console.WriteLine();
 						break;
 
@@ -442,25 +455,6 @@ namespace BattleShip
 		}
 	}
 
-	public class Warfare
-	{
-		public static void Game()
-		{
-
-		}
-
-	}
-
-	public class WarfareAdv
-	{
-		public static void Game()
-		{
-
-		}
-
-	}
-
-
 	public class Player
 	{
 		public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
@@ -576,18 +570,22 @@ namespace BattleShip
 					Console.WriteLine("Where would you like to shoot (Y)?");
 					int y = Convert.ToInt32(Console.ReadLine()) - 1;
 
-					bool valid = Board.Check_Valid(AI_Board, x, y);
+					bool validAI = Board.Check_Valid(AI_Board, x, y);
+					bool validPL = Board.Check_Valid(Player_Board, x, y);
 					bool hit = Board.Check_Hit(AI_Board, x, y);
 
-					if (!valid)
+					if (!validAI || !validPL)
+					{
+						Console.WriteLine("Not a valid shot. Please choose new x, and y values");
 						Broken = true;
+					}
 
-					if (hit)
+					if (hit && validAI && validPL)
 					{
 						Console.WriteLine("Hit");
 						Player_Board[x, y] = 'H';
 					}
-					else
+					else if (!hit && validAI && validPL)
 					{
 						Console.WriteLine("Miss");
 						Player_Board[x, y] = 'X';
@@ -1283,6 +1281,7 @@ namespace BattleShip
 			bool Broken = false;
 			bool valid = false;
 			bool hit = false;
+			int fu = 0;
 
 			do
 			{
@@ -1290,7 +1289,6 @@ namespace BattleShip
 
 				try
 				{
-					int fu = 0;
 					int x, y;
 					if (Hit)
 					{
@@ -1394,9 +1392,11 @@ namespace BattleShip
 									{
 										attempt = 5;
 									}
+									Console.WriteLine("FU is: " + fu + " attempt is: " + attempt);
 									throw new System.ArgumentException();
 								}
 							default:
+								Console.WriteLine("Default");
 								Hit = false;
 								break;
 						}
@@ -1409,7 +1409,7 @@ namespace BattleShip
 					if (!valid)
 						Broken = true;
 
-					if (hit)
+					if (hit && valid)
 					{
 						Console.WriteLine("AI Hit");
 						Right_Board[x, y] = 'H';
@@ -1418,7 +1418,7 @@ namespace BattleShip
 						Hit = true;
 						attempt = 1;
 					}
-					else
+					else if (!hit && valid)
 					{
 						Console.WriteLine("AI Missed");
 						Right_Board[x, y] = 'X';
