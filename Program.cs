@@ -18,6 +18,8 @@ namespace BattleShip
 			do
 			{
 				StartScreen();
+				Rules();
+				Options(1, 2);
 				//gets the gamemode choice for the switch statment
 				int answer = MainMenu();
 
@@ -136,7 +138,75 @@ namespace BattleShip
 		{
 			Console.Clear();
 			CenterText("Help Screen");
-			Console.WriteLine("-- If a question has a (Y/N) at the end, pressing y or Y will accept all other keys will ");
+			Console.WriteLine();
+			Console.WriteLine("-If a question has a (Y/N) at the end, pressing y or Y will accept all other keys will automaticly deny.");
+			Console.WriteLine("-If a question has a (Y/N) at the end, DO NOT hit enter after you put your input.");
+			Console.WriteLine();
+			CenterText("Rules and How to play:");
+			Console.WriteLine("(1) The player (you) will begin by picking a gamemode (press 10 for info on the gamemode)");
+			Console.WriteLine("(2) After you choose a gamemode, you will setup the board by placing your ships");
+			Console.WriteLine("(3) While you place your ships the AI will be setting up their ships");
+			Console.WriteLine("(4) Once you place your ships the game will begin!)");
+			Console.WriteLine("(5) To shoot enter the x and y cooradinates and it will mark the board where you shot and tell you if you hit or miss.");
+			Console.WriteLine("(6) once you shoot the ai will shoot and place a X for miss and a H for hit on your right board. ");
+			Console.WriteLine("(7) The game will end when either all the player's ships are down or all of the AI's ships are down.");
+			Console.WriteLine();
+			CenterText("Press the H key to return to this menu after any round.");
+			Console.WriteLine();
+			CenterText("Press any button to continue...");
+			Console.ReadKey();
+			Console.Clear();
+		}
+
+		static char Options(int coorx, int coory)
+		{
+			bool Broken = false;
+			char i = 'O';
+
+			do
+			{
+				Broken = false;
+
+				Console.Clear();
+				CenterText("Options Menu:");
+				Console.WriteLine();
+				Console.WriteLine("L: Launch torpedo at corrdanates ({0},{1})", coorx, coory);
+				Console.WriteLine("S: Set coordanates for next shot.");
+				Console.WriteLine("N: Set new coordanates for shot.");
+
+				try
+				{
+					i = Char.ToLower(Console.ReadKey(false).KeyChar);
+					Console.ReadKey();
+				}
+				catch
+				{
+					Console.WriteLine("Input is invalid. Try again.");
+					Broken = true;
+					Console.Clear();
+				}
+			} while (Broken);
+
+			switch (i)
+			{
+				case 'l':
+					{
+						Console.WriteLine("Launching Torpedos!");
+						return 'l';
+					}
+				case 'h':
+					{
+						Rules();
+						break;
+					}
+				default:
+					{
+
+					}
+
+
+			}
+
 		}
 		static void CenterText(string str)
 		{
