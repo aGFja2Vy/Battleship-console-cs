@@ -10,6 +10,8 @@ namespace BattleShip
 	{
 		static void Main(string[] args)
 		{
+
+			Console.SetWindowSize(800, 300);
 			bool quit = false;
 			bool Broken = false;
 			bool PlayAgain = false;
@@ -19,12 +21,10 @@ namespace BattleShip
 			{
 				StartScreen();
 				Rules();
-				Options(1, 2);
 				//gets the gamemode choice for the switch statment
 				int answer = MainMenu();
 
-				//sets the game to match the mode they chose (1 = classic 2 = classic++ 3 = warfare 4 = warfare++)
-				//Temp idea but it wont work... I think it would work if I used new classes for the different gamemodes
+				//sets the game to match the mode they chose (1 = classic 2 = classic++)
 				switch (answer)
 				{
 					case 1:
@@ -121,11 +121,11 @@ namespace BattleShip
 			Console.Clear();
 			Console.WriteLine("");
 			Console.WriteLine("");
-			Console.WriteLine("  !!!!!!!        !!!       !!!!!!!!   !!!!!!!!!    !!         !!!!!!!     !!!!!!!     !!    !!     !!!!!     !!!!!!!");
-			Console.WriteLine("  !!!  !!!      !! !!         !!         !!!       !!         !!         !!!          !!    !!      !!!      !!   !!!");
-			Console.WriteLine("  !!!!!!       !!---!!        !!         !!!       !!         !!!!!!!     !!!!!!      !!!!!!!!      !!!      !!  !!!");
-			Console.WriteLine("  !!!  !!!    !!     !!       !!         !!!       !!         !!              !!!     !!    !!      !!!      !!");
-			Console.WriteLine("  !!!!!!     !!       !!      !!         !!!       !!!!!!     !!!!!!!     !!!!!       !!    !!     !!!!!     !!");
+			CenterText("  !!!!!!!        !!!       !!!!!!!!   !!!!!!!!!    !!         !!!!!!!     !!!!!!!     !!    !!     !!!!!     !!!!!!!   ");
+			CenterText("  !!!  !!!      !! !!         !!         !!!       !!         !!         !!!          !!    !!      !!!      !!   !!!  ");
+			CenterText("  !!!!!!       !!---!!        !!         !!!       !!         !!!!!!!     !!!!!!      !!!!!!!!      !!!      !!  !!!   ");
+			CenterText("  !!!  !!!    !!     !!       !!         !!!       !!         !!              !!!     !!    !!      !!!      !!        ");
+			CenterText("  !!!!!!     !!       !!      !!         !!!       !!!!!!     !!!!!!!     !!!!!       !!    !!     !!!!!     !!        ");
 			Console.WriteLine("");
 			Console.WriteLine("");
 			CenterText("Welcome to Battleship the C# version");
@@ -161,56 +161,98 @@ namespace BattleShip
 		static char Options(int coorx, int coory)
 		{
 			bool Broken = false;
+			bool Repeat = false;
+			char answer = 'n';
 			char i = 'O';
 
 			do
 			{
-				Broken = false;
-
-				Console.Clear();
-				CenterText("Options Menu:");
-				Console.WriteLine();
-				Console.WriteLine("L: Launch torpedo at corrdanates ({0},{1})", coorx, coory);
-				Console.WriteLine("S: Set coordanates for next shot.");
-				Console.WriteLine("N: Set new coordanates for shot.");
-
-				try
+				Repeat = false;
+				do
 				{
-					i = Char.ToLower(Console.ReadKey(false).KeyChar);
-					Console.ReadKey();
-				}
-				catch
-				{
-					Console.WriteLine("Input is invalid. Try again.");
-					Broken = true;
+					Broken = false;
+
 					Console.Clear();
+					CenterText("Options Menu:");
+					Console.WriteLine();
+					Console.WriteLine("L: Launch torpedo at corrdanates ({0},{1}).", coorx, coory);
+					Console.WriteLine("N: Set new coordanates for shot.");
+					Console.WriteLine("H: go to the rules and help menu.");
+					Console.WriteLine("X: exit and quit the game.");
+
+					try
+					{
+						i = Char.ToLower(Console.ReadKey(false).KeyChar);
+						Console.ReadKey();
+					}
+					catch
+					{
+						Console.WriteLine("Input is invalid. Try again.");
+						Broken = true;
+						Console.Clear();
+					}
+				} while (Broken);
+
+				switch (i)
+				{
+					case 'l':
+						{
+							Console.Clear();
+							Console.WriteLine("Launching Torpedos!");
+							return 'l';
+						}
+						case 'n':
+						{
+							Console.Clear();
+							Console.WriteLine("Setting new coorsanates.");
+							return 'n';
+						}
+						case 'x':
+						{
+							Console.Clear();
+						  CenterText("Are you sure you wish to close the game? (Y/N)");
+							try
+							{
+								answer = Char.ToLower(Console.ReadKey(false).KeyChar);
+								Console.ReadKey();
+							}
+							catch
+							{
+								System.Environment.Exit(1);
+							}
+							if(answer == 'y')
+							{
+								System.Environment.Exit(1);
+							}
+							else
+							{
+								break;
+							}
+								return e;
+						}
+					case 'h':
+						{
+							Rules();
+							break;
+						}
+					default:
+						{
+							Repeat = true;
+							break;
+						}
 				}
-			} while (Broken);
-
-			switch (i)
-			{
-				case 'l':
-					{
-						Console.WriteLine("Launching Torpedos!");
-						return 'l';
-					}
-				case 'h':
-					{
-						Rules();
-						break;
-					}
-				default:
-					{
-
-					}
-
-
-			}
-
+			}while(Repeat);
 		}
 		static void CenterText(string str)
 		{
-			Console.SetCursorPosition((Console.WindowWidth - str.Length) / 2, Console.CursorTop);
+			try
+			{
+				Console.SetCursorPosition((Console.WindowWidth - str.Length) / 2, Console.CursorTop);
+			}
+			catch
+			{
+
+			}
 			Console.WriteLine(str);
 		}
 		static int MainMenu()
