@@ -11,7 +11,7 @@ namespace BattleShip
 		static void Main(string[] args)
 		{
 
-			Console.SetWindowSize(130, 40);
+			Console.SetWindowSize(130, 30);
 			bool quit = false;
 			bool Broken = false;
 			bool PlayAgain = false;
@@ -28,84 +28,85 @@ namespace BattleShip
 				switch (answer)
 				{
 					case 1:
-
-						do
 						{
-							Classic.Game();
 
 							do
 							{
-								Broken = false;
+								Classic.Game();
 
-								Console.WriteLine("Would you like to...");
-								Console.WriteLine("1: Play Again");
-								Console.WriteLine("2: Quit");
-
-								try
+								do
 								{
-									Continue = Convert.ToInt32(Console.ReadLine());
-								}
-								catch
-								{
-									Console.WriteLine("Not a valid answer");
-									Broken = true;
-								}
+									Broken = false;
 
-							} while (Broken);
+									Console.WriteLine("Would you like to...");
+									Console.WriteLine("1: Play Again");
+									Console.WriteLine("2: Quit");
 
-							switch (Continue)
-							{
-								case 1:
+									try
+									{
+										Continue = Convert.ToInt32(Console.ReadLine());
+									}
+									catch
+									{
+										Console.WriteLine("Not a valid answer");
+										Broken = true;
+									}
+
+								} while (Broken);
+
+								if (Continue == 1)
 									PlayAgain = true;
-									break;
-
-								case 2:
+								else
+								{
 									PlayAgain = false;
-									break;
-							}
-						} while (PlayAgain);
+									quit = true;
+								}
 
-						break;
+							} while (PlayAgain);
+
+							break;
+						}
 
 					case 2:
-
-						do
 						{
-							ClassicAdv.Game();
 
 							do
 							{
-								Broken = false;
+								ClassicAdv.Game();
 
-								Console.WriteLine("Would you like to...");
-								Console.WriteLine("1: Play Again");
-								Console.WriteLine("2: Quit");
-
-								try
+								do
 								{
-									Continue = Convert.ToInt32(Console.ReadLine());
-								}
-								catch
-								{
-									Console.WriteLine("Not a valid answer");
-									Broken = true;
-								}
+									Broken = false;
 
-							} while (Broken);
+									Console.WriteLine("Would you like to...");
+									Console.WriteLine("1: Play Again");
+									Console.WriteLine("2: Quit");
 
-							switch (Continue)
-							{
-								case 1:
+									try
+									{
+										Continue = Convert.ToInt32(Console.ReadLine());
+									}
+									catch
+									{
+										Console.WriteLine("Not a valid answer");
+										Broken = true;
+									}
+
+								} while (Broken);
+
+
+								if (Continue == 1)
 									PlayAgain = true;
-									break;
-
-								case 2:
+								else
+								{
 									PlayAgain = false;
-									break;
-							}
-						} while (PlayAgain);
+									quit = true;
+								}
 
-						break;
+							} while (PlayAgain);
+
+							break;
+						}
 				}
 
 			} while (!quit);
@@ -163,7 +164,7 @@ namespace BattleShip
 			bool Broken = false;
 			bool Repeat = false;
 			char answer = 'n';
-			char i = 'O';
+			char i = 'e';
 
 			do
 			{
@@ -172,8 +173,8 @@ namespace BattleShip
 				{
 					Broken = false;
 
-					Console.Clear();
-					CenterText("Options Menu:");
+					Console.WriteLine();
+					Console.WriteLine("Options Menu:");
 					Console.WriteLine();
 					Console.WriteLine("L: Launch torpedo at coordinates ({0},{1}).", coorx, coory);
 					Console.WriteLine("N: Set new coordinates for shot.");
@@ -199,12 +200,14 @@ namespace BattleShip
 						{
 							Console.Clear();
 							Console.WriteLine("Launching Torpedoes!");
+							Console.WriteLine();
 							return 'l';
 						}
 					case 'n':
 						{
 							Console.Clear();
 							Console.WriteLine("Setting new coordinates.");
+							Console.WriteLine();
 							return 'n';
 						}
 					case 'x':
@@ -233,7 +236,7 @@ namespace BattleShip
 					case 'h':
 						{
 							Rules();
-							break;
+							return 'h';
 						}
 					default:
 						{
@@ -251,7 +254,7 @@ namespace BattleShip
 			bool Broken = false;
 			bool Repeat = false;
 			char answer = 'n';
-			char i = 'O';
+			char i = 'e';
 
 			do
 			{
@@ -262,7 +265,7 @@ namespace BattleShip
 					Broken = false;
 
 					Console.WriteLine();
-					CenterText("Options Menu:");
+					Console.WriteLine("Options Menu:");
 					Console.WriteLine();
 					Console.WriteLine("N: Set coordinates for shot.");
 					Console.WriteLine("H: go to the rules and help menu.");
@@ -598,8 +601,7 @@ namespace BattleShip
 			do
 			{
 				//Console.Clear();
-				Player.Display_Board(Left_Board, Right_Board, x, y);
-				Player.Attack(Left_Board, AI_Board);
+				Player.Attack(Left_Board, AI_Board, Right_Board, x, y);
 				Console.WriteLine();
 				AI.Attack(AI_Board, Right_Board, x, y);
 
@@ -644,7 +646,7 @@ namespace BattleShip
 			{
 				//Console.Clear();
 				Player.Display_Board(Left_Board, Right_Board, x, y);
-				Player.Attack(Left_Board, AI_Board);
+				Player.Attack(Left_Board, AI_Board, Right_Board, x, y);
 				Console.WriteLine();
 				AI.Attack(AI_Board, Right_Board, x, y);
 
@@ -654,8 +656,8 @@ namespace BattleShip
 
 	public class Player
 	{
-		int[,] LastShots = new int[5, 5];
-		int shotNumber = 0;
+		public static int[,] LastShots = new int[2, 5];
+		public static int[,] CurrentShot = new int[2, 1];
 
 		public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
 		{
@@ -755,8 +757,10 @@ namespace BattleShip
 			}
 		}
 
-		public static void Attack(char[,] Player_Board, char[,] AI_Board)
+		public static void Attack(char[,] Player_Board, char[,] AI_Board, char[,] Right_Board, int dix, int diy)
 		{
+			bool Repeat = false;
+			bool loaded = false;
 			bool Broken = false;
 			int x = 1;
 			int y = 1;
@@ -764,59 +768,117 @@ namespace BattleShip
 			do
 			{
 				Broken = false;
+				Repeat = false;
 
 				try
 				{
-					do
+					if (!loaded)
 					{
-						char answer = Program.Options();
-						Broken = false;
-
-						if (answer == 'n')
+						do
 						{
-							Console.WriteLine("Where would you like to shoot (X)?");
-							x = Convert.ToInt32(Console.ReadLine()) - 1;
-							Console.WriteLine("Where would you like to shoot (Y)?");
-							y = Convert.ToInt32(Console.ReadLine()) - 1;
-						}
-						else if (answer == 'h')
-						{
-							Program.Rules();
-						}
-						else
-						{
-							Broken = true;
-						}
-					} while (Broken);
+							Player.Display_Board(Player_Board, Right_Board, dix, diy);
+							char answer = Program.Options();
+							Broken = false;
 
-					bool validAI = Board.Check_Valid(AI_Board, x, y);
-					bool validPL = Board.Check_Valid(Player_Board, x, y);
-					bool hit = Board.Check_Hit(AI_Board, x, y);
+							if (answer == 'n')
+							{
+								Player.Display_Board(Player_Board, Right_Board, dix, diy);
+								Console.WriteLine();
+								Console.WriteLine("Where would you like to shoot (X)?");
+								x = Convert.ToInt32(Console.ReadLine()) - 1;
+								Console.WriteLine("Where would you like to shoot (Y)?");
+								y = Convert.ToInt32(Console.ReadLine()) - 1;
 
-					if (!validAI || !validPL)
-					{
-						Console.WriteLine("Not a valid shot. Please choose new x, and y values.");
-						Broken = true;
+								CurrentShot[0, 0] = x + 1;
+								CurrentShot[1, 0] = y + 1;
+
+								loaded = true;
+								Repeat = true;
+								Console.Clear();
+
+							}
+							else if (answer == 'h')
+							{
+								Program.Rules();
+							}
+							else
+							{
+								Broken = true;
+							}
+
+						} while (Broken);
 					}
+					else
+					{
+						do
+						{
+							Player.Display_Board(Player_Board, Right_Board, dix, diy);
+							char answer = Program.Options(CurrentShot[0, 0], CurrentShot[1, 0]);
+							Broken = false;
 
-					if (hit && validAI && validPL)
-					{
-						Console.WriteLine("Hit");
-						Player_Board[x, y] = 'H';
-					}
-					else if (!hit && validAI && validPL)
-					{
-						Console.WriteLine("Miss");
-						Player_Board[x, y] = 'X';
+							if (answer == 'n')
+							{
+								Player.Display_Board(Player_Board, Right_Board, dix, diy);
+								Console.WriteLine();
+								Console.WriteLine("Where would you like to shoot (X)?");
+								x = Convert.ToInt32(Console.ReadLine()) - 1;
+								Console.WriteLine("Where would you like to shoot (Y)?");
+								y = Convert.ToInt32(Console.ReadLine()) - 1;
+
+								CurrentShot[0, 0] = x + 1;
+								CurrentShot[1, 0] = y + 1;
+
+								Console.Clear();
+
+							}
+							else if (answer == 'l')
+							{
+								bool validAI = Board.Check_Valid(AI_Board, x, y);
+								bool validPL = Board.Check_Valid(Player_Board, x, y);
+								bool hit = Board.Check_Hit(AI_Board, x, y);
+
+								if (!validAI || !validPL)
+								{
+									Console.WriteLine("Not a valid shot. Please choose new x, and y values.");
+									Broken = true;
+								}
+
+								if (hit && validAI && validPL)
+								{
+									Console.WriteLine("Hit");
+									Player_Board[x, y] = 'H';
+								}
+								else if (!hit && validAI && validPL)
+								{
+									Console.WriteLine("Miss");
+									Player_Board[x, y] = 'X';
+								}
+
+								loaded = false;
+
+								if (!Broken)
+									return;
+
+							}
+							else if (answer == 'h')
+							{
+								Program.Rules();
+							}
+							else
+							{
+								Broken = true;
+							}
+						} while (Broken);
 					}
 				}
 				catch
 				{
-					Console.WriteLine("You know what you did...");
-					Console.WriteLine("Invalid Position");
+					Console.Clear();
+					Program.CenterText("Something went wrong... Please try again.");
 					Broken = true;
 				}
-			} while (Broken);
+
+			} while (Broken || Repeat);
 		}
 	}
 
