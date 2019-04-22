@@ -11,7 +11,7 @@ namespace BattleShip
 		static void Main(string[] args)
 		{
 
-			Console.SetWindowSize(800, 300);
+			Console.SetWindowSize(130, 40);
 			bool quit = false;
 			bool Broken = false;
 			bool PlayAgain = false;
@@ -111,7 +111,7 @@ namespace BattleShip
 			} while (!quit);
 
 			//Temp ending while I debug that pauses what is going on and clears the terminal
-			Console.WriteLine("Press ANY Key To Continue");
+			Console.WriteLine("Press ANY key to continue");
 			Console.ReadKey();
 			Console.Clear();
 		}
@@ -128,26 +128,26 @@ namespace BattleShip
 			CenterText("  !!!!!!     !!       !!      !!         !!!       !!!!!!     !!!!!!!     !!!!!       !!    !!     !!!!!     !!        ");
 			Console.WriteLine("");
 			Console.WriteLine("");
-			CenterText("Welcome to Battleship the C# version");
+			CenterText("Welcome to Battleship, the C# version");
 			CenterText("Press any button to continue...");
 			Console.ReadKey();
 			Console.Clear();
 		}
 
-		static void Rules()
+		public static void Rules()
 		{
 			Console.Clear();
 			CenterText("Help Screen");
 			Console.WriteLine();
-			Console.WriteLine("-If a question has a (Y/N) at the end, pressing y or Y will accept all other keys will automaticly deny.");
+			Console.WriteLine("-If a question has a (Y/N) at the end, pressing y or Y will accept all other keys will automatically deny.");
 			Console.WriteLine("-If a question has a (Y/N) at the end, DO NOT hit enter after you put your input.");
 			Console.WriteLine();
 			CenterText("Rules and How to play:");
-			Console.WriteLine("(1) The player (you) will begin by picking a gamemode (press 10 for info on the gamemode)");
-			Console.WriteLine("(2) After you choose a gamemode, you will setup the board by placing your ships");
+			Console.WriteLine("(1) The player (you) will begin by picking a game mode (press 10 for info on the game mode)");
+			Console.WriteLine("(2) After you choose a game mode, you will setup the board by placing your ships");
 			Console.WriteLine("(3) While you place your ships the AI will be setting up their ships");
 			Console.WriteLine("(4) Once you place your ships the game will begin!)");
-			Console.WriteLine("(5) To shoot enter the x and y cooradinates and it will mark the board where you shot and tell you if you hit or miss.");
+			Console.WriteLine("(5) To shoot enter the x and y coordinates and it will mark the board where you shot and tell you if you hit or miss.");
 			Console.WriteLine("(6) once you shoot the ai will shoot and place a X for miss and a H for hit on your right board. ");
 			Console.WriteLine("(7) The game will end when either all the player's ships are down or all of the AI's ships are down.");
 			Console.WriteLine();
@@ -158,7 +158,7 @@ namespace BattleShip
 			Console.Clear();
 		}
 
-		static char Options(int coorx, int coory)
+		public static char Options(int coorx, int coory)
 		{
 			bool Broken = false;
 			bool Repeat = false;
@@ -175,8 +175,8 @@ namespace BattleShip
 					Console.Clear();
 					CenterText("Options Menu:");
 					Console.WriteLine();
-					Console.WriteLine("L: Launch torpedo at corrdanates ({0},{1}).", coorx, coory);
-					Console.WriteLine("N: Set new coordanates for shot.");
+					Console.WriteLine("L: Launch torpedo at coordinates ({0},{1}).", coorx, coory);
+					Console.WriteLine("N: Set new coordinates for shot.");
 					Console.WriteLine("H: go to the rules and help menu.");
 					Console.WriteLine("X: exit and quit the game.");
 
@@ -198,19 +198,19 @@ namespace BattleShip
 					case 'l':
 						{
 							Console.Clear();
-							Console.WriteLine("Launching Torpedos!");
+							Console.WriteLine("Launching Torpedoes!");
 							return 'l';
 						}
-						case 'n':
+					case 'n':
 						{
 							Console.Clear();
-							Console.WriteLine("Setting new coorsanates.");
+							Console.WriteLine("Setting new coordinates.");
 							return 'n';
 						}
-						case 'x':
+					case 'x':
 						{
 							Console.Clear();
-						  CenterText("Are you sure you wish to close the game? (Y/N)");
+							CenterText("Are you sure you wish to close the game? (Y/N)");
 							try
 							{
 								answer = Char.ToLower(Console.ReadKey(false).KeyChar);
@@ -220,7 +220,7 @@ namespace BattleShip
 							{
 								System.Environment.Exit(1);
 							}
-							if(answer == 'y')
+							if (answer == 'y')
 							{
 								System.Environment.Exit(1);
 							}
@@ -228,7 +228,7 @@ namespace BattleShip
 							{
 								break;
 							}
-								return e;
+							return 'x';
 						}
 					case 'h':
 						{
@@ -241,9 +241,94 @@ namespace BattleShip
 							break;
 						}
 				}
-			}while(Repeat);
+			} while (Repeat);
+
+			return 'e';
 		}
-		static void CenterText(string str)
+
+		public static char Options()
+		{
+			bool Broken = false;
+			bool Repeat = false;
+			char answer = 'n';
+			char i = 'O';
+
+			do
+			{
+				Repeat = false;
+
+				do
+				{
+					Broken = false;
+
+					Console.WriteLine();
+					CenterText("Options Menu:");
+					Console.WriteLine();
+					Console.WriteLine("N: Set coordinates for shot.");
+					Console.WriteLine("H: go to the rules and help menu.");
+					Console.WriteLine("X: exit and quit the game.");
+
+					try
+					{
+						i = Char.ToLower(Console.ReadKey(false).KeyChar);
+						Console.ReadKey();
+					}
+					catch
+					{
+						Console.WriteLine("Input is invalid. Try again.");
+						Broken = true;
+						Console.Clear();
+					}
+				} while (Broken);
+
+				switch (i)
+				{
+					case 'n':
+						{
+							Console.Clear();
+							Console.WriteLine("Setting new coordinates.");
+							return 'n';
+						}
+					case 'x':
+						{
+							Console.Clear();
+							CenterText("Are you sure you wish to close the game? (Y/N)");
+							try
+							{
+								answer = Char.ToLower(Console.ReadKey(false).KeyChar);
+								Console.ReadKey();
+							}
+							catch
+							{
+								System.Environment.Exit(1);
+							}
+							if (answer == 'y')
+							{
+								System.Environment.Exit(1);
+							}
+							else
+							{
+								break;
+							}
+							return 'x';
+						}
+					case 'h':
+						{
+							return 'h';
+						}
+					default:
+						{
+							Repeat = true;
+							break;
+						}
+				}
+			} while (Repeat);
+
+			return 'e';
+		}
+
+
+		public static void CenterText(string str)
 		{
 			try
 			{
@@ -255,38 +340,39 @@ namespace BattleShip
 			}
 			Console.WriteLine(str);
 		}
+
 		static int MainMenu()
 		{
 			//The choice they make gets stored as answer
 			int answer;
 
-			//this loop forces the player to pick a valid gamemode before It will move on
+			//this loop forces the player to pick a valid game mode before It will move on
 			while (true)
 			{
-				Console.WriteLine("Choose a gamemode.");
+				Console.WriteLine("Choose a game mode.");
 				Console.WriteLine("1: Classic (default)");
 				Console.WriteLine("2: Classic++");
-				Console.WriteLine("10: Show rules and gamemode explinations.");
+				Console.WriteLine("10: Show rules and game mode explanations.");
 				try
 				{
 					answer = Convert.ToInt32(Console.ReadLine());
 				}
 				catch
 				{
-					Console.WriteLine("Input is invalid. Defaulting to Classic gamemode.");
+					Console.WriteLine("Input is invalid. Defaulting to Classic game mode.");
 					answer = 1;
 				}
 
 				switch (answer)
 				{
 					case 1:
-						//returns 1 for the Clasic gamemode
+						//returns 1 for the Classic game mode
 						Console.Clear();
-						Console.WriteLine("You choose Classic gamemode.");
+						Console.WriteLine("You choose Classic game mode.");
 						return 1;
 
 					case 2:
-						//returns 2 for the classic++ gamemode
+						//returns 2 for the classic++ game mode
 						Console.Clear();
 						Console.WriteLine("You choose Classic++.");
 						return 2;
@@ -294,9 +380,9 @@ namespace BattleShip
 					case 10:
 						//tells the player what the options are and what the differences are
 						Console.Clear();
-						Console.WriteLine("Classic: classic BattleShip with a 10x10 board and 5 ships.");
+						Console.WriteLine("Classic: classic Battleship with a 10x10 board and 5 ships.");
 						Console.WriteLine();
-						Console.WriteLine("Classic++: classic BattleShip but you get to choose the number of ships and the board size.");
+						Console.WriteLine("Classic++: classic Battleship but you get to choose the number of ships and the board size.");
 						Console.WriteLine();
 						break;
 
@@ -309,7 +395,7 @@ namespace BattleShip
 
 		public static void SetUp(out int x, out int y, out int ship5, out int ship4, out int ship3, out int ship2)
 		{
-			//default values if they are not givin
+			//default values if they are not given
 			x = 11;
 			y = 11;
 			ship5 = 1;
@@ -430,7 +516,7 @@ namespace BattleShip
 
 					try
 					{
-						Console.WriteLine("What is the X dimention or the length of the new board size? (anything greater then 9 and less then 100 is accepted)");
+						Console.WriteLine("What is the X dimension or the length of the new board size? (anything greater than 9 and less than 100 is accepted)");
 						answer_int = Convert.ToInt32(Console.ReadLine());
 						x = answer_int;
 						Console.WriteLine();
@@ -456,7 +542,7 @@ namespace BattleShip
 
 					try
 					{
-						Console.WriteLine("What is the height of the new Board or the Y dimention? (anything greater then 9 and less then 100 is accepted)");
+						Console.WriteLine("What is the height of the new Board or the Y dimension? (anything greater than 9 and less than 100 is accepted)");
 						answer_int = Convert.ToInt32(Console.ReadLine());
 						y = answer_int;
 						Console.WriteLine();
@@ -471,7 +557,7 @@ namespace BattleShip
 
 					catch
 					{
-						Console.WriteLine("Hey! that is not allowed.Try again");
+						Console.WriteLine("Hey! that is not allowed. Try again");
 						Broken = true;
 					}
 
@@ -505,7 +591,6 @@ namespace BattleShip
 			Board.Set_Board(AI_Board, x, y);
 
 			//lets them place there ships
-			Player.Display_Board(Left_Board, Right_Board, x, y);
 			Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
 			AI.AI_Setup(AI_Board, x, y, ship5, ship4, ship3, ship2);
 
@@ -529,7 +614,7 @@ namespace BattleShip
 		public static void Game()
 		{
 			//sets the default values
-			//I think this can be moved somewhere so i dont have to re declare these values every 10 fucking lines
+			//I think this can be moved somewhere so I dont must re declare these values every 10 fucking lines
 			int x = 11, y = 11;
 			int ship5 = 1, ship4 = 1, ship3 = 2, ship2 = 1;
 			bool Player_Alive = true;
@@ -539,17 +624,17 @@ namespace BattleShip
 			// gets all the values back for future use
 			Program.SetUp(out x, out y, out ship5, out ship4, out ship3, out ship2);
 
-			//sets the board with regards to the dimentions they gave
+			//sets the board with regards to the dimensions they gave
 			char[,] Right_Board = new char[x, y];
 			char[,] Left_Board = new char[x, y];
 			char[,] AI_Board = new char[x, y];
 
-			//makes all the Board arrays spaces so they can place there ships
+			//makes all the Board arrays spaces so they can place their ships
 			Board.Set_Board(Right_Board, x, y);
 			Board.Set_Board(Left_Board, x, y);
 			Board.Set_Board(AI_Board, x, y);
 
-			//lets them choose where they want to place there ships
+			//lets them choose where they want to place their ships
 			Player.Display_Board(Left_Board, Right_Board, x, y);
 			Board.Set_ship(Right_Board, ship5, ship4, ship3, ship2, x, y);
 			AI.AI_Setup(AI_Board, x, y, ship5, ship4, ship3, ship2);
@@ -569,6 +654,9 @@ namespace BattleShip
 
 	public class Player
 	{
+		int[,] LastShots = new int[5, 5];
+		int shotNumber = 0;
+
 		public static void Display_Board(char[,] board, char[,] right_board, int arrx, int arry)
 		{
 
@@ -603,7 +691,7 @@ namespace BattleShip
 
 			for (int i = 0; i < arry; i++)
 			{
-				//the if statment adds a space to the left side numbers so it stays alligned
+				//the if statement adds a space to the left side numbers so it stays aligned
 				if (i < 9)
 					Console.Write("\t" + (i + 1) + " |  ");
 				else
@@ -670,6 +758,8 @@ namespace BattleShip
 		public static void Attack(char[,] Player_Board, char[,] AI_Board)
 		{
 			bool Broken = false;
+			int x = 1;
+			int y = 1;
 
 			do
 			{
@@ -677,10 +767,27 @@ namespace BattleShip
 
 				try
 				{
-					Console.WriteLine("Where would you like to shoot (X)?");
-					int x = Convert.ToInt32(Console.ReadLine()) - 1;
-					Console.WriteLine("Where would you like to shoot (Y)?");
-					int y = Convert.ToInt32(Console.ReadLine()) - 1;
+					do
+					{
+						char answer = Program.Options();
+						Broken = false;
+
+						if (answer == 'n')
+						{
+							Console.WriteLine("Where would you like to shoot (X)?");
+							x = Convert.ToInt32(Console.ReadLine()) - 1;
+							Console.WriteLine("Where would you like to shoot (Y)?");
+							y = Convert.ToInt32(Console.ReadLine()) - 1;
+						}
+						else if (answer == 'h')
+						{
+							Program.Rules();
+						}
+						else
+						{
+							Broken = true;
+						}
+					} while (Broken);
 
 					bool validAI = Board.Check_Valid(AI_Board, x, y);
 					bool validPL = Board.Check_Valid(Player_Board, x, y);
@@ -688,7 +795,7 @@ namespace BattleShip
 
 					if (!validAI || !validPL)
 					{
-						Console.WriteLine("Not a valid shot. Please choose new x, and y values");
+						Console.WriteLine("Not a valid shot. Please choose new x, and y values.");
 						Broken = true;
 					}
 
@@ -735,6 +842,8 @@ namespace BattleShip
 
 			do
 			{
+				Player.Display_Board(board, arrx, arry);
+
 				do
 				{
 					Broken = false;
@@ -814,7 +923,7 @@ namespace BattleShip
 
 					if ((veiw != 1) && (veiw != 2))
 					{
-						Console.WriteLine("Invalid rotaion");
+						Console.WriteLine("Invalid rotation");
 						Broken = true;
 					}
 
@@ -838,12 +947,14 @@ namespace BattleShip
 				}
 
 				ship5--;
-				Player.Display_Board(board, arrx, arry);
+				Console.Clear();
 
 			} while (ship5 >= 1);
 
 			do
 			{
+				Player.Display_Board(board, arrx, arry);
+
 				do
 				{
 					Broken = false;
@@ -860,7 +971,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -877,7 +988,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -896,7 +1007,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -921,7 +1032,7 @@ namespace BattleShip
 
 					if ((veiw != 1) && (veiw != 2))
 					{
-						Console.WriteLine("Invalid rotaion");
+						Console.WriteLine("Invalid rotation");
 						Broken = true;
 					}
 
@@ -943,12 +1054,14 @@ namespace BattleShip
 				}
 
 				ship4--;
-				Player.Display_Board(board, arrx, arry);
+				Console.Clear();
 
 			} while (ship4 >= 1);
 
 			do
 			{
+				Player.Display_Board(board, arrx, arry);
+
 				do
 				{
 					Broken = false;
@@ -965,7 +1078,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -982,7 +1095,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -1001,7 +1114,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -1026,7 +1139,7 @@ namespace BattleShip
 
 					if ((veiw != 1) && (veiw != 2))
 					{
-						Console.WriteLine("Invalid rotaion");
+						Console.WriteLine("Invalid rotation");
 						Broken = true;
 					}
 				} while (Broken);
@@ -1045,12 +1158,14 @@ namespace BattleShip
 				}
 
 				ship3--;
-				Player.Display_Board(board, arrx, arry);
+				Console.Clear();
 
 			} while (ship3 >= 1);
 
 			do
 			{
+				Player.Display_Board(board, arrx, arry);
+
 				do
 				{
 					Broken = false;
@@ -1067,7 +1182,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -1084,7 +1199,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -1103,7 +1218,7 @@ namespace BattleShip
 						}
 						catch
 						{
-							Console.WriteLine("There was a problem with that input. Try agian.");
+							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
 					} while (Broken);
@@ -1128,7 +1243,7 @@ namespace BattleShip
 
 					if ((veiw != 1) && (veiw != 2))
 					{
-						Console.WriteLine("Invalid rotaion");
+						Console.WriteLine("Invalid rotation");
 						Broken = true;
 					}
 				} while (Broken);
@@ -1145,7 +1260,7 @@ namespace BattleShip
 				}
 
 				ship2--;
-				Player.Display_Board(board, arrx, arry);
+				Console.Clear();
 
 			} while (ship2 >= 1);
 
