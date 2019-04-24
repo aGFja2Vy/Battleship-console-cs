@@ -9,6 +9,9 @@ namespace BattleShip
 {
 	public class Program
 	{
+		public static int[] Ships = new int[4] { 1, 1, 2, 1 };
+		public static int[] ArryValues = new int[2] { 10, 10 };
+
 		static void Main(string[] args)
 		{
 
@@ -331,7 +334,6 @@ namespace BattleShip
 			return 'e';
 		}
 
-
 		public static void CenterText(string str)
 		{
 			try
@@ -397,16 +399,8 @@ namespace BattleShip
 			}
 		}
 
-		public static void SetUp(out int x, out int y, out int ship5, out int ship4, out int ship3, out int ship2)
+		public static void SetUp()
 		{
-			//default values if they are not given
-			x = 11;
-			y = 11;
-			ship5 = 1;
-			ship4 = 1;
-			ship3 = 2;
-			ship2 = 1;
-
 			//setup for the answer
 			int answer_int = 0;
 			//if this is true something is not working right
@@ -429,7 +423,7 @@ namespace BattleShip
 					try
 					{
 						Console.WriteLine("How many 5 long ships do you want?");
-						ship5 = Convert.ToInt32(Console.ReadLine());
+						Ships[0] = Convert.ToInt32(Console.ReadLine());
 						Console.WriteLine();
 					}
 					catch
@@ -450,7 +444,7 @@ namespace BattleShip
 					try
 					{
 						Console.WriteLine("How many 4 long ships do you want?");
-						ship4 = Convert.ToInt32(Console.ReadLine());
+						Ships[1] = Convert.ToInt32(Console.ReadLine());
 						Console.WriteLine();
 					}
 					catch
@@ -467,7 +461,7 @@ namespace BattleShip
 					try
 					{
 						Console.WriteLine("How many 3 long ships do you want?");
-						ship3 = Convert.ToInt32(Console.ReadLine());
+						Ships[2] = Convert.ToInt32(Console.ReadLine());
 						Console.WriteLine();
 					}
 					catch
@@ -484,7 +478,7 @@ namespace BattleShip
 					try
 					{
 						Console.WriteLine("How many 2 long ships do you want?");
-						ship2 = Convert.ToInt32(Console.ReadLine());
+						Ships[3] = Convert.ToInt32(Console.ReadLine());
 						Console.WriteLine();
 					}
 					catch
@@ -522,10 +516,10 @@ namespace BattleShip
 					{
 						Console.WriteLine("What is the X dimension or the length of the new board size? (anything greater than 9 and less than 100 is accepted)");
 						answer_int = Convert.ToInt32(Console.ReadLine());
-						x = answer_int;
+						ArryValues[0] = answer_int;
 						Console.WriteLine();
 
-						if ((x <= 9) || (x >= 100))
+						if ((ArryValues[0] <= 9) || (ArryValues[0] >= 100))
 						{
 							Console.WriteLine("Hey! That number is out of bounds.");
 							Broken = true;
@@ -548,10 +542,10 @@ namespace BattleShip
 					{
 						Console.WriteLine("What is the height of the new Board or the Y dimension? (anything greater than 9 and less than 100 is accepted)");
 						answer_int = Convert.ToInt32(Console.ReadLine());
-						y = answer_int;
+						ArryValues[1] = answer_int;
 						Console.WriteLine();
 
-						if ((y <= 9) || (y >= 100))
+						if ((ArryValues[1] <= 9) || (ArryValues[1] >= 100))
 						{
 							Console.WriteLine("Hey! that number is out of bounds.");
 							Broken = true;

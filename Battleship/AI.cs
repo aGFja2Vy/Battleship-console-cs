@@ -75,49 +75,48 @@ namespace Battleship
 			}
 		}
 
-		public static void AI_Setup(char[,] board, int arrx, int arry, int ship5, int ship4, int ship3, int ship2)
+		public static void AI_Setup(char[,] board, int arrx, int arry)
 		{
+			int Ship5 = 1;
+			int Ship4 = 1;
+			int Ship3 = 2;
+			int Ship2 = 1;
 			int x = 0, y = 0;
 			int view = 0;
-			int total_Ships = ship5 + ship4 + ship3 + ship2;
-			bool worked = true;
+			bool worked = false;
 
-			do
+			while (Ship5 > 0)
 			{
-				while (ship5 > 0)
-				{
-					Random_Coor(out x, out y, arrx, arry);
-					Random_View(out view);
-					worked = Ship_Placement(board, x, y, view, 5);
-					if (worked)
-						ship5--;
-				}
-				while (ship4 > 0)
-				{
-					Random_Coor(out x, out y, arrx, arry);
-					Random_View(out view);
-					worked = Ship_Placement(board, x, y, view, 4);
-					if (worked)
-						ship4--;
-				}
-				while (ship3 > 0)
-				{
-					Random_Coor(out x, out y, arrx, arry);
-					Random_View(out view);
-					worked = Ship_Placement(board, x, y, view, 3);
-					if (worked)
-						ship3--;
-				}
-				while (ship2 > 0)
-				{
-					Random_Coor(out x, out y, arrx, arry);
-					Random_View(out view);
-					worked = Ship_Placement(board, x, y, view, 2);
-					if (worked)
-						ship2--;
-				}
-				total_Ships = ship5 + ship4 + ship3 + ship2;
-			} while (total_Ships > 0);
+				Random_Coor(out x, out y, arrx, arry);
+				Random_View(out view);
+				worked = Ship_Placement(board, x, y, view, 5);
+				if (worked)
+					Ship5--;
+			}
+			while (Ship4 > 0)
+			{
+				Random_Coor(out x, out y, arrx, arry);
+				Random_View(out view);
+				worked = Ship_Placement(board, x, y, view, 4);
+				if (worked)
+					Ship4--;
+			}
+			while (Ship3 > 0)
+			{
+				Random_Coor(out x, out y, arrx, arry);
+				Random_View(out view);
+				worked = Ship_Placement(board, x, y, view, 3);
+				if (worked)
+					Ship3--;
+			}
+			while (Ship2 > 0)
+			{
+				Random_Coor(out x, out y, arrx, arry);
+				Random_View(out view);
+				worked = Ship_Placement(board, x, y, view, 2);
+				if (worked)
+					Ship2--;
+			}
 
 		}
 

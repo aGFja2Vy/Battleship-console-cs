@@ -19,7 +19,22 @@ namespace Battleship
 			}
 		}
 
-		public static void Set_ship(char[,] board, int ship5, int ship4, int ship3, int ship2, int arrx, int arry)
+		public static bool CheckGame(char[,] board, int x, int y)
+		{
+			for (int i = 0; i < y; i++)
+			{
+				for (int j = 0; j < x; j++)
+				{
+					if (board[j, i] == '#')
+					{
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		public static void Set_ship(char[,] board, int arrx, int arry)
 		{
 			bool Broken = false;
 			int veiw = 0;
@@ -132,10 +147,10 @@ namespace Battleship
 					board[(coorx + 4), coory] = '#';
 				}
 
-				ship5--;
+				Program.Ships[0]--;
 				Console.Clear();
 
-			} while (ship5 >= 1);
+			} while (Program.Ships[0] >= 1);
 
 			do
 			{
@@ -239,10 +254,10 @@ namespace Battleship
 					board[(coorx + 3), coory] = '#';
 				}
 
-				ship4--;
+				Program.Ships[1]--;
 				Console.Clear();
 
-			} while (ship4 >= 1);
+			} while (Program.Ships[1] >= 1);
 
 			do
 			{
@@ -343,10 +358,10 @@ namespace Battleship
 					board[(coorx + 2), coory] = '#';
 				}
 
-				ship3--;
+				Program.Ships[2]--;
 				Console.Clear();
 
-			} while (ship3 >= 1);
+			} while (Program.Ships[2] >= 1);
 
 			do
 			{
@@ -445,10 +460,10 @@ namespace Battleship
 					board[(coorx + 1), coory] = '#';
 				}
 
-				ship2--;
+				Program.Ships[3]--;
 				Console.Clear();
 
-			} while (ship2 >= 1);
+			} while (Program.Ships[3] >= 1);
 
 		}
 
@@ -572,6 +587,11 @@ namespace Battleship
 			{
 				return false;
 			}
+		}
+
+		public static void SomeShit()
+		{
+
 		}
 	}
 }
