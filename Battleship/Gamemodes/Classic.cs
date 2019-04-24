@@ -29,10 +29,6 @@ namespace Battleship
 			//lets them place there ships
 			Board.Set_ship(Right_Board, Program.ArryValues[0], Program.ArryValues[1]);
 			AI.AI_Setup(AI_Board, Program.ArryValues[0], Program.ArryValues[1]);
-			Console.Clear();
-			Program.CenterText("DEBUG");
-			Player.Display_Board(AI_Board, Program.ArryValues[0], Program.ArryValues[1]);
-			Console.ReadKey();
 
 			//repeats until one of the players loses and runs out of ships
 			do
@@ -45,6 +41,23 @@ namespace Battleship
 				AI_Alive = Board.CheckGame(AI_Board, Program.ArryValues[0], Program.ArryValues[1]);
 
 			} while (Player_Alive && AI_Alive);
+
+			if (!Player_Alive)
+			{
+				Console.Clear();
+				Console.WriteLine();
+				Program.CenterText("LOSER!");
+				Program.CenterText("Press any key to continue...");
+				Console.ReadKey();
+			}
+			if (!AI_Alive)
+			{
+				Console.Clear();
+				Console.WriteLine();
+				Program.CenterText("YOU WIN!");
+				Program.CenterText("Press any key to continue...");
+				Console.ReadKey();
+			}
 		}
 	}
 }

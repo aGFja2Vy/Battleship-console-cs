@@ -41,8 +41,27 @@ namespace Battleship
 				Player.Attack(Left_Board, AI_Board, Right_Board, Program.ArryValues[0], Program.ArryValues[1]);
 				Console.WriteLine();
 				AI.Attack(AI_Board, Right_Board, Program.ArryValues[0], Program.ArryValues[1]);
+				Player_Alive = Board.CheckGame(Right_Board, Program.ArryValues[0], Program.ArryValues[1]);
+				AI_Alive = Board.CheckGame(AI_Board, Program.ArryValues[0], Program.ArryValues[1]);
 
 			} while (Player_Alive && AI_Alive);
+
+			if (!Player_Alive)
+			{
+				Console.Clear();
+				Console.WriteLine();
+				Program.CenterText("LOSER!");
+				Program.CenterText("Press any key to continue...");
+				Console.ReadKey();
+			}
+			if (!AI_Alive)
+			{
+				Console.Clear();
+				Console.WriteLine();
+				Program.CenterText("YOU WIN!");
+				Program.CenterText("Press any key to continue...");
+				Console.ReadKey();
+			}
 		}
 	}
 }

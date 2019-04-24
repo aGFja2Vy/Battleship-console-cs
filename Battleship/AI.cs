@@ -77,12 +77,11 @@ namespace Battleship
 
 		public static void AI_Setup(char[,] board, int arrx, int arry)
 		{
-			int Ship5 = 1;
-			int Ship4 = 1;
-			int Ship3 = 2;
-			int Ship2 = 1;
-			int x = 0, y = 0;
-			int view = 0;
+			int Ship5 = Program.Ships[0];
+			int Ship4 = Program.Ships[1];
+			int Ship3 = Program.Ships[2];
+			int Ship2 = Program.Ships[3];
+			int x, y, view = 0;
 			bool worked = false;
 
 			while (Ship5 > 0)
@@ -236,11 +235,9 @@ namespace Battleship
 									{
 										attempt = 5;
 									}
-									Console.WriteLine("FU is: " + fu + " attempt is: " + attempt);
 									throw new System.ArgumentException();
 								}
 							default:
-								Console.WriteLine("Default");
 								Hit = false;
 								break;
 						}

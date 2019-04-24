@@ -9,43 +9,62 @@ namespace BattleShip
 {
 	public class Program
 	{
+		//Sets the default values for the board size and the default number for the ship sizes
 		public static int[] Ships = new int[4] { 1, 1, 2, 1 };
 		public static int[] ArryValues = new int[2] { 10, 10 };
 
+		//this runs the menus and essentually the order in which everything should be called 
 		static void Main(string[] args)
 		{
-
+			//sets the Windows console to a size that will work with the center text function
 			Console.SetWindowSize(130, 30);
-			bool quit = false;
+
+			//Makes it so that by default the game quits instead of forcing the player to play again
+			bool quit = true;
+
+			//Everything is broken so this will be changed any time user input is invalid or an exception is caught
 			bool Broken = false;
+
+			//Makes it so that the player can choose to play agian if they want to (Possibly reduntant)
 			bool PlayAgain = false;
+
+			//This will be changed with user input and if it == 1 it will close the game
 			int Continue = 2;
 
 			do
 			{
+				//Shows the Battleship intro screen
 				StartScreen();
+
+				//Shows the player what the rules are
 				Rules();
+
 				//gets the gamemode choice for the switch statment
 				int answer = MainMenu();
 
 				//sets the game to match the mode they chose (1 = classic 2 = classic++)
 				switch (answer)
 				{
+					//This is the classic gamemode
 					case 1:
 						{
-
+							//This playes the game then repeats if the player wants to
 							do
 							{
+								//This is the game part (choosing/placing ships ect.)
 								Classic.Game();
 
+								//This do while loop offers the user the option to quit or to play again then forces the user to enter new input if they break something
 								do
 								{
+									//Prevents infinate loops
 									Broken = false;
 
 									Console.WriteLine("Would you like to...");
 									Console.WriteLine("1: Play Again");
 									Console.WriteLine("2: Quit");
 
+									//trys and Catchs bad input because users cannot be trusted
 									try
 									{
 										Continue = Convert.ToInt32(Console.ReadLine());
@@ -56,17 +75,20 @@ namespace BattleShip
 										Broken = true;
 									}
 
-								} while (Broken);
+								}while(Broken);
 
+								//Player wants to play again
 								if (Continue == 1)
 									PlayAgain = true;
+
+								//Player is done playing
 								else
 								{
 									PlayAgain = false;
 									quit = true;
 								}
 
-							} while (PlayAgain);
+							}while(PlayAgain);
 
 							break;
 						}
@@ -168,7 +190,7 @@ namespace BattleShip
 			bool Broken = false;
 			bool Repeat = false;
 			char answer = 'n';
-			char i = 'e';
+			int i = 10;
 
 			do
 			{
@@ -180,15 +202,14 @@ namespace BattleShip
 					Console.WriteLine();
 					Console.WriteLine("Options Menu:");
 					Console.WriteLine();
-					Console.WriteLine("L: Launch torpedo at coordinates ({0},{1}).", coorx, coory);
-					Console.WriteLine("N: Set new coordinates for shot.");
-					Console.WriteLine("H: go to the rules and help menu.");
-					Console.WriteLine("X: exit and quit the game.");
+					Console.WriteLine("1: Fire torpedo at coordinates ({0},{1}).", coorx, coory);
+					Console.WriteLine("2: Set new coordinates for shot.");
+					Console.WriteLine("3: go to the rules and help menu.");
+					Console.WriteLine("4: exit and quit the game.");
 
 					try
 					{
-						i = Char.ToLower(Console.ReadKey(false).KeyChar);
-						Console.ReadKey();
+						i = Convert.ToInt32(Console.ReadLine());
 					}
 					catch
 					{
@@ -200,21 +221,21 @@ namespace BattleShip
 
 				switch (i)
 				{
-					case 'l':
+					case 1:
 						{
 							Console.Clear();
 							Console.WriteLine("Launching Torpedoes!");
 							Console.WriteLine();
 							return 'l';
 						}
-					case 'n':
+					case 2:
 						{
 							Console.Clear();
 							Console.WriteLine("Setting new coordinates.");
 							Console.WriteLine();
 							return 'n';
 						}
-					case 'x':
+					case 4:
 						{
 							Console.Clear();
 							CenterText("Are you sure you wish to close the game? (Y/N)");
@@ -237,7 +258,7 @@ namespace BattleShip
 							}
 							return 'x';
 						}
-					case 'h':
+					case 3:
 						{
 							Rules();
 							return 'h';
@@ -258,7 +279,7 @@ namespace BattleShip
 			bool Broken = false;
 			bool Repeat = false;
 			char answer = 'n';
-			char i = 'e';
+			int i = 10;
 
 			do
 			{
@@ -271,14 +292,13 @@ namespace BattleShip
 					Console.WriteLine();
 					Console.WriteLine("Options Menu:");
 					Console.WriteLine();
-					Console.WriteLine("N: Set coordinates for shot.");
-					Console.WriteLine("H: go to the rules and help menu.");
-					Console.WriteLine("X: exit and quit the game.");
+					Console.WriteLine("1: Set coordinates for shot.");
+					Console.WriteLine("2: go to the rules and help menu.");
+					Console.WriteLine("3: exit and quit the game.");
 
 					try
 					{
-						i = Char.ToLower(Console.ReadKey(false).KeyChar);
-						Console.ReadKey();
+						i = Convert.ToInt32(Console.ReadLine());
 					}
 					catch
 					{
@@ -290,13 +310,13 @@ namespace BattleShip
 
 				switch (i)
 				{
-					case 'n':
+					case 1:
 						{
 							Console.Clear();
 							Console.WriteLine("Setting new coordinates.");
 							return 'n';
 						}
-					case 'x':
+					case 3:
 						{
 							Console.Clear();
 							CenterText("Are you sure you wish to close the game? (Y/N)");
@@ -319,7 +339,7 @@ namespace BattleShip
 							}
 							return 'x';
 						}
-					case 'h':
+					case 2:
 						{
 							return 'h';
 						}

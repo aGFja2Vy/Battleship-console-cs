@@ -37,11 +37,15 @@ namespace Battleship
 		public static void Set_ship(char[,] board, int arrx, int arry)
 		{
 			bool Broken = false;
+			int Ship5 = Program.Ships[0];
+			int Ship4 = Program.Ships[1];
+			int Ship3 = Program.Ships[2];
+			int Ship2 = Program.Ships[3];
 			int veiw = 0;
 			int coorx = 0;
 			int coory = 0;
 
-			do
+			while(Ship5 >= 1)
 			{
 				Player.Display_Board(board, arrx, arry);
 
@@ -65,7 +69,7 @@ namespace Battleship
 							Console.WriteLine("Hey! That is not allowed. Try again.");
 							Broken = true;
 						}
-					} while (Broken);
+					}while(Broken);
 
 					do
 					{
@@ -82,7 +86,7 @@ namespace Battleship
 							Console.WriteLine("Hey! That is not allowed. Try again.");
 							Broken = true;
 						}
-					} while (Broken);
+					}while(Broken);
 
 
 					do
@@ -102,11 +106,11 @@ namespace Battleship
 							Console.WriteLine("Hey! That is not allowed. Try again.");
 							Broken = true;
 						}
-					} while (Broken);
+					}while(Broken);
 
 					if (!Check_Placement(board, coorx, coory, veiw, 5))
 					{
-						Console.WriteLine("This is invalid placement according to the Check_Placement function");
+						Console.WriteLine("This is invalid placement.");
 						Broken = true;
 					}
 
@@ -128,7 +132,7 @@ namespace Battleship
 						Broken = true;
 					}
 
-				} while (Broken);
+				}while(Broken);
 
 				if (veiw == 1)
 				{
@@ -147,12 +151,11 @@ namespace Battleship
 					board[(coorx + 4), coory] = '#';
 				}
 
-				Program.Ships[0]--;
+				Ship5--;
 				Console.Clear();
+			}
 
-			} while (Program.Ships[0] >= 1);
-
-			do
+			while(Ship4 >= 1)
 			{
 				Player.Display_Board(board, arrx, arry);
 
@@ -175,7 +178,7 @@ namespace Battleship
 							Console.WriteLine("There was a problem with that input. Try again.");
 							Broken = true;
 						}
-					} while (Broken);
+					}while(Broken);
 
 					do
 					{
@@ -215,7 +218,7 @@ namespace Battleship
 
 					if (!Check_Placement(board, coorx, coory, veiw, 4))
 					{
-						Console.WriteLine("This is invalid placement according to the Check_Placement function");
+						Console.WriteLine("This is invalid placement.");
 						Broken = true;
 					}
 
@@ -254,12 +257,11 @@ namespace Battleship
 					board[(coorx + 3), coory] = '#';
 				}
 
-				Program.Ships[1]--;
+				Ship4--;
 				Console.Clear();
+			}
 
-			} while (Program.Ships[1] >= 1);
-
-			do
+			while(Ship3 >= 1)
 			{
 				Player.Display_Board(board, arrx, arry);
 
@@ -322,7 +324,7 @@ namespace Battleship
 
 					if (!Check_Placement(board, coorx, coory, veiw, 3))
 					{
-						Console.WriteLine("This is invalid placement according to the Check_Placement function");
+						Console.WriteLine("This is invalid placement.");
 						Broken = true;
 					}
 
@@ -358,12 +360,11 @@ namespace Battleship
 					board[(coorx + 2), coory] = '#';
 				}
 
-				Program.Ships[2]--;
+				Ship3--;
 				Console.Clear();
+			}
 
-			} while (Program.Ships[2] >= 1);
-
-			do
+			while(Ship2 >= 1)
 			{
 				Player.Display_Board(board, arrx, arry);
 
@@ -426,7 +427,7 @@ namespace Battleship
 
 					if (!Check_Placement(board, coorx, coory, veiw, 2))
 					{
-						Console.WriteLine("This is invalid placement according to the Check_Placement function");
+						Console.WriteLine("This is invalid placement.");
 						Broken = true;
 					}
 
@@ -460,10 +461,9 @@ namespace Battleship
 					board[(coorx + 1), coory] = '#';
 				}
 
-				Program.Ships[3]--;
+				Ship2--;
 				Console.Clear();
-
-			} while (Program.Ships[3] >= 1);
+			} 
 
 		}
 
@@ -589,9 +589,5 @@ namespace Battleship
 			}
 		}
 
-		public static void SomeShit()
-		{
-
-		}
 	}
 }

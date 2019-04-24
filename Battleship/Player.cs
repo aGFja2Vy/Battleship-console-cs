@@ -165,6 +165,7 @@ namespace Battleship
 					{
 						do
 						{
+							Repeat = false;
 							Player.Display_Board(Player_Board, Right_Board, dix, diy);
 							char answer = Program.Options(CurrentShot[0, 0], CurrentShot[1, 0]);
 							Broken = false;
@@ -180,7 +181,7 @@ namespace Battleship
 
 								CurrentShot[0, 0] = x + 1;
 								CurrentShot[1, 0] = y + 1;
-
+								Repeat = true;
 								Console.Clear();
 
 							}
@@ -221,7 +222,7 @@ namespace Battleship
 							{
 								Broken = true;
 							}
-						} while (Broken);
+						} while(Broken || Repeat);
 					}
 				}
 				catch
