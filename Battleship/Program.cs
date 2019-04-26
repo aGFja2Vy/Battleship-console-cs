@@ -133,6 +133,55 @@ namespace BattleShip
 
 							break;
 						}
+					case 3:
+						{
+							//This playes the game then repeats if the player wants to
+							do
+							{
+								//This is the game part (choosing/placing ships ect.)
+								AIGame.Game();
+
+								//This do while loop offers the user the option to quit or to play again then forces the user to enter new input if they break something
+								do
+								{
+									//Prevents infinate loops
+									Broken = false;
+									Console.WriteLine("Player:");
+									Player.Display_Board(AIGame.Left_Board, AIGame.Right_Board, 10, 10);
+									Console.WriteLine("Ai:");
+									Player.Display_Board(AIGame.AI_Board, 10, 10);
+									Console.WriteLine("Would you like to...");
+									Console.WriteLine("1: Play Again");
+									Console.WriteLine("2: Quit");
+
+									//trys and Catchs bad input because users cannot be trusted
+									try
+									{
+										Continue = Convert.ToInt32(Console.ReadLine());
+									}
+									catch
+									{
+										Console.WriteLine("Not a valid answer");
+										Broken = true;
+									}
+
+								} while (Broken);
+
+								//Player wants to play again
+								if (Continue == 1)
+									PlayAgain = true;
+
+								//Player is done playing
+								else
+								{
+									PlayAgain = false;
+									quit = true;
+								}
+
+							} while (PlayAgain);
+
+							break;
+						}
 				}
 
 			} while (!quit);
@@ -378,6 +427,7 @@ namespace BattleShip
 				Console.WriteLine("Choose a game mode.");
 				Console.WriteLine("1: Classic (default)");
 				Console.WriteLine("2: Classic++");
+				Console.WriteLine("3: AI only mode");
 				Console.WriteLine("10: Show rules and game mode explanations.");
 				try
 				{
@@ -402,7 +452,11 @@ namespace BattleShip
 						Console.Clear();
 						Console.WriteLine("You choose Classic++.");
 						return 2;
+					case 3:
+						//returns 3
+						return 3;
 
+						
 					case 10:
 						//tells the player what the options are and what the differences are
 						Console.Clear();

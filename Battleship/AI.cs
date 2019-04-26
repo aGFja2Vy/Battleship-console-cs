@@ -18,8 +18,8 @@ namespace Battleship
 
 		public static void Random_Coor(out int x, out int y, int arrx, int arry)
 		{
-			x = rand.Next(0, (arrx - 1));
-			y = rand.Next(0, (arry - 1));
+			x = rand.Next(0, (arrx));
+			y = rand.Next(0, (arry));
 
 		}
 

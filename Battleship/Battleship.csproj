@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AI.cs" />
     <Compile Include="Board.cs" />
+    <Compile Include="Gamemodes\AIGame.cs" />
     <Compile Include="Gamemodes\Classic.cs" />
     <Compile Include="Gamemodes\ClassicAdv.cs" />
     <Compile Include="Player.cs" />
